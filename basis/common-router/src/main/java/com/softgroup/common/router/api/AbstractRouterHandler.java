@@ -8,19 +8,11 @@ import org.springframework.stereotype.Component;
 @Component
 public abstract class AbstractRouterHandler<T extends Handler> implements RouterHandler {
 
-//	@Autowired
-//    private TypeReferenceFactory typeReferenceFactory;
-
     @Autowired
-    private T handler;
-
-	@Override
-	public String getRouteKey(Request<?> msg) {
-		return msg.getHeader().getCommand();
-	}
+    private HandlerFactory handlerFactory;
 
     @Override
 	public Response<?> handle(Request<?> msg) {
-		return handler.handle(msg);
+		return handlerFactory.getHandler(getRouteKey(msg)).handle(msg);
 	}
 }
