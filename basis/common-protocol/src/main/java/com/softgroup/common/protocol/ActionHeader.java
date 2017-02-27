@@ -11,6 +11,17 @@ public class ActionHeader implements Serializable {
     private String type;
     private String version;
 
+    public ActionHeader() {
+    }
+
+    public ActionHeader(String uuid, String originUuid, String command, String type, String version) {
+        this.uuid = uuid;
+        this.originUuid = originUuid;
+        this.command = command;
+        this.type = type;
+        this.version = version;
+    }
+
     public String getUuid() {
         return uuid;
     }
