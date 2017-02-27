@@ -18,12 +18,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.alex.koveckiy</groupId>
+            <groupId>com.alex_koveckiy</groupId>
             <artifactId>common-datamapper</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.alex.koveckiy</groupId>
+            <groupId>com.alex_koveckiy</groupId>
             <artifactId>common-protocol</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
