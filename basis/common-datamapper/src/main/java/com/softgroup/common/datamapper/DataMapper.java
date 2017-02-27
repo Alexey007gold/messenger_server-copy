@@ -2,9 +2,10 @@ package com.softgroup.common.datamapper;
 
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -16,7 +17,9 @@ public interface DataMapper {
 
 	<T> T convert(Map<String, Object> map, Class<T> dataType);
 
-	<F, T> T convert(F from, TypeReference<T> dataType);
+	<T> T convert(Object from, TypeReference<T> dataType);
+
+	<T> T convert(Object from, Class<T> dataType);
 
 	<T> T mapData(String data, Class<T> dataType);
 
@@ -29,5 +32,4 @@ public interface DataMapper {
 	<T> String dataToString(T data);
 
 	String objectToString(Object data);
-
 }

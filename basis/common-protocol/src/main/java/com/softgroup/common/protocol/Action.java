@@ -2,13 +2,21 @@ package com.softgroup.common.protocol;
 
 import java.io.Serializable;
 
-public class Action<T extends ActionData> implements Serializable {
+public class Action<T extends Serializable> implements Serializable {
 
 	private static final long serialVersionUID = 3373910816445037302L;
 
     private ActionHeader header;
 
     private T data;
+
+    public Action() {
+    }
+
+    public Action(ActionHeader header, T data) {
+        this.header = header;
+        this.data = data;
+    }
 
     public ActionHeader getHeader() {
         return header;
@@ -25,5 +33,4 @@ public class Action<T extends ActionData> implements Serializable {
     public void setData(T data) {
         this.data = data;
     }
-
 }

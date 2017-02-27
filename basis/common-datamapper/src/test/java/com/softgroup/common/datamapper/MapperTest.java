@@ -1,10 +1,10 @@
 package com.softgroup.common.datamapper;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.softgroup.MapperException;
 import com.softgroup.common.datamapper.support.ModelA;
 import com.softgroup.common.datamapper.support.ModelB;
 import com.softgroup.common.datamapper.support.ModelWithEnum;
-import com.softgroup.common.exceptions.MapperException;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.hamcrest.core.IsNull.nullValue;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author odin
