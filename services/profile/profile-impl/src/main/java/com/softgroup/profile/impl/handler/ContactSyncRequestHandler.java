@@ -27,39 +27,6 @@ public class ContactSyncRequestHandler extends AbstractRequestHandler<ContactSyn
 
     @Override
     public Response<ContactSyncResponse> process(Request<?> msg) {
-//        Request<ContactSyncRequest> request = (Request<ContactSyncRequest>) msg;
-//        ActionHeader header = null;
-//        ContactSyncResponse data = null;
-//        ResponseStatus status = null;
-//
-//        try {
-//            String token = request.getData().getToken();
-//            if (!isTokenExpired(token)) {
-//                String phoneNumber = getPhoneNumberFromDeviceToken(token);
-//                if (dataBase.users.hasUser(phoneNumber)) {
-//                    ArrayList<ContactDTO> addedContacts = request.getData().getAddedContacts();
-//                    dataBase.contacts.addContacts(addedContacts);
-//                    ArrayList<ContactDTO> removedContacts = request.getData().getRemovedContacts();
-//                    dataBase.contacts.removeContacts(removedContacts);
-//
-//                    header = new ActionHeader(UUID.randomUUID().toString(),
-//                            request.getHeader().getUuid(),
-//                            "contact_sync",
-//                            "profile",
-//                            "HTTP/1.1");
-//                    data = null;//new ContactSyncResponse();
-//                    status = new ResponseStatus(200, "OK");
-//                } else {
-//                }
-//            } else {
-//                status = new ResponseStatus(404, "Not Found");
-//            }
-//        } catch (Exception e) {
-//            header = null;
-//            data = null;
-//            status = new ResponseStatus(400, "Bad Request");
-//        }
-//        return new Response<>(header, data, status);
         return null;
     }
 }
