@@ -32,38 +32,7 @@ public class RegisterRequestHandler extends AbstractRequestHandler<RegisterReque
 
     @Override
     public Response<RegisterResponse> process(Request<?> msg) {
-        Request<RegisterRequest> request = (Request<RegisterRequest>) msg;
-        ActionHeader header = null;
-        RegisterResponse data = null;
-        ResponseStatus status = null;
-
-        try {
-            String phoneNumber = request.getData().getPhoneNumber();
-            if (numberIsOk(phoneNumber)) {
-                RegSession regSession = commonData.createRegSession(phoneNumber,
-                        request.getData().getDeviceID(),
-                        request.getData().getLocaleCode());
-
-                header = new ActionHeader(UUID.randomUUID().toString(),
-                        request.getHeader().getUuid(),
-                        "authorization",
-                        "register",
-                        "HTTP/1.1");
-
-                data = new RegisterResponse(regSession.getUUID(),
-                        regSession.getTimeOut(),
-                        regSession.getAuthCode());
-                status = new ResponseStatus(200, "OK");
-                sendSms(phoneNumber, regSession.getAuthCode());
-            } else
-                throw new IllegalArgumentException();
-        } catch (Exception e) {
-            header = null;
-            data = null;
-            status = new ResponseStatus(400, "Bad request");
-        }
-
-        return new Response<>(header, data, status);
+        return null;
     }
 
     private void sendSms(String phoneNumber, int authCode) {

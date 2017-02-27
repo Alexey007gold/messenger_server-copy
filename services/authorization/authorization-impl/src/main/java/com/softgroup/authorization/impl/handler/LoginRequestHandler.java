@@ -41,56 +41,6 @@ public class LoginRequestHandler extends AbstractRequestHandler<LoginRequest, Lo
 
     @Override
     public Response<LoginResponse> process(Request<?> msg) {
-        Request<LoginRequest> request = (Request<LoginRequest>) msg;
-        ActionHeader header = null;
-        LoginResponse data = null;
-        ResponseStatus status = null;
-
-        try {
-            String deviceToken = request.getData().getDeviceToken();
-            String phoneNumber = getPhoneNumberFromDeviceToken(deviceToken);
-
-            if (dataBase.users.hasUser(phoneNumber)) {
-                header = new ActionHeader(UUID.randomUUID().toString(),
-                        request.getHeader().getUuid(),
-                        "authorization",
-                        "login",
-                        "HTTP/1.1");
-                data = new LoginResponse(createTemporaryTokenForPhoneNumber(phoneNumber));
-                status = new ResponseStatus(200, "OK");
-            }
-            else {
-                status = new ResponseStatus(404, "Not Found");
-            }
-        } catch (JoseException ignored) {
-            header = null;
-            data = null;
-            status = new ResponseStatus(400, "Bad Request");
-        }
-        return new Response<>(header, data, status);
-    }
-
-    private String getPhoneNumberFromDeviceToken(String deviceToken) {
-        try {
-            JsonWebEncryption jwe = new JsonWebEncryption();
-            jwe.setKey(commonData.aesKey);
-            jwe.setCompactSerialization(deviceToken);
-            JwtClaims claims = JwtClaims.parse(jwe.getPayload());
-            return (String) claims.getClaimsMap().get("phone_number");
-        } catch (JoseException | InvalidJwtException e) {
-            return "";
-        }
-    }
-
-    private String createTemporaryTokenForPhoneNumber(String phoneNumber) throws JoseException {
-        JwtClaims claims = new JwtClaims();
-        claims.setClaim("phone_number", phoneNumber);
-        claims.setExpirationTimeMinutesInTheFuture(999999999);
-        JsonWebEncryption jwe = new JsonWebEncryption();
-        jwe.setPayload(claims.toJson());
-        jwe.setKey(commonData.aesKey);
-        jwe.setAlgorithmHeaderValue(KeyManagementAlgorithmIdentifiers.A128KW);
-        jwe.setEncryptionMethodHeaderParameter(ContentEncryptionAlgorithmIdentifiers.AES_128_CBC_HMAC_SHA_256);
-        return jwe.getCompactSerialization();
+        return null;
     }
 }

@@ -35,35 +35,6 @@ public class SmsConfirmRequestHandler extends AbstractRequestHandler<SmsConfirmR
 
     @Override
     public Response<SmsConfirmResponse> process(Request<?> msg) {
-        Request<SmsConfirmRequest> request = (Request<SmsConfirmRequest>) msg;
-        ActionHeader header = null;
-        SmsConfirmResponse data = null;
-        ResponseStatus status = null;
-
-        try {
-            String uuid = request.getData().getRegistrationRequestUuid();
-            int authCode = request.getData().getAuthCode();
-
-            RegSession regSession = commonData.takeRegSession(uuid);
-            if (regSession != null && !regSession.hasExpired() && regSession.getAuthCode() == authCode) {
-                dataBase.users.addUser(regSession.getPhoneNumber());
-                String deviceToken = regSession.newDeviceToken();
-
-                header = new ActionHeader(UUID.randomUUID().toString(),
-                        request.getHeader().getUuid(),
-                        "authorization",
-                        "sms_confirm",
-                        "HTTP/1.1");
-                data = new SmsConfirmResponse(deviceToken);
-                status = new ResponseStatus(200, "OK");
-                status.setMessage("OK");
-            } else {
-                status = new ResponseStatus(403, "Forbidden");
-            }
-        } catch (Exception e) {
-            status = new ResponseStatus(400, "Bad request");
-        }
-
-        return new Response<>(header, data, status);
+        return null;
     }
 }
