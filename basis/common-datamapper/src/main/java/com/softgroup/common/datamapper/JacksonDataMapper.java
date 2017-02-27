@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.softgroup.common.exceptions.MapperException;
+import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import com.softgroup.MapperException;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
@@ -56,7 +54,16 @@ public class JacksonDataMapper implements DataMapper {
 	}
 
 	@Override
-	public <F, T> T convert(F from, TypeReference<T> dataType) {
+	public <T> T convert(Object from, TypeReference<T> dataType) {
+		try {
+			return mapper.convertValue(from, dataType);
+		} catch (Exception ex) {
+			throw new MapperException("Can't convert map ", ex);
+		}
+	}
+
+	@Override
+	public <T> T convert(Object from, Class<T> dataType) {
 		try {
 			return mapper.convertValue(from, dataType);
 		} catch (Exception ex) {
@@ -117,5 +124,4 @@ public class JacksonDataMapper implements DataMapper {
 			throw new MapperException("Can`t create string", e);
 		}
 	}
-
 }
