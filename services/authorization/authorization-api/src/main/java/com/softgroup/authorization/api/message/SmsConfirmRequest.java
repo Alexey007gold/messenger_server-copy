@@ -1,7 +1,6 @@
 package com.softgroup.authorization.api.message;
 
 import com.softgroup.common.protocol.RequestData;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by alex on 24.02.17.

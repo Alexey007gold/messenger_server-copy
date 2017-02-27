@@ -4,6 +4,5 @@ import com.softgroup.common.router.api.CommonRouterHandler;
 import com.softgroup.common.router.api.RouterHandler;
 import org.springframework.stereotype.Component;
 
-@Component
 public interface AuthorizationRouterHandler extends RouterHandler, CommonRouterHandler {
 }

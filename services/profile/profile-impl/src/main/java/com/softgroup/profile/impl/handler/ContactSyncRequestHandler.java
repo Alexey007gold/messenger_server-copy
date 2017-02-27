@@ -1,15 +1,12 @@
 package com.softgroup.profile.impl.handler;
 
-import com.softgroup.profile.api.message.ContactSyncRequest;
-import com.softgroup.profile.api.message.ContactSyncResponse;
-import com.softgroup.profile.api.router.ProfileRequestHandler;
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.Response;
 import com.softgroup.common.router.api.AbstractRequestHandler;
+import com.softgroup.profile.api.message.ContactSyncRequest;
+import com.softgroup.profile.api.message.ContactSyncResponse;
+import com.softgroup.profile.api.router.ProfileRequestHandler;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.UUID;
 
 /**
  * Created by alex on 24.02.17.

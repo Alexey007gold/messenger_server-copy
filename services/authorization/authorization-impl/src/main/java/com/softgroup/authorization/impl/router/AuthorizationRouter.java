@@ -1,6 +1,7 @@
 package com.softgroup.authorization.impl.router;
 
 import com.softgroup.authorization.api.router.AuthorizationRouterHandler;
+import com.softgroup.common.protocol.Request;
 import com.softgroup.common.router.api.AbstractRouterHandler;
 import org.springframework.stereotype.Component;
 
@@ -13,5 +14,10 @@ public class AuthorizationRouter extends AbstractRouterHandler<AuthorizationRout
 
     public String getName() {
         return "authorization";
+    }
+
+    @Override
+    public String getRouteKey(Request<?> msg) {
+        return msg.getHeader().getCommand();
     }
 }

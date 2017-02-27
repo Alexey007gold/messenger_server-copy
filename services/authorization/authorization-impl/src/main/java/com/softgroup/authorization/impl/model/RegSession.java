@@ -4,6 +4,7 @@ import org.jose4j.jwe.ContentEncryptionAlgorithmIdentifiers;
 import org.jose4j.jwe.JsonWebEncryption;
 import org.jose4j.jwe.KeyManagementAlgorithmIdentifiers;
 import org.jose4j.jwt.JwtClaims;
+import org.jose4j.keys.AesKey;
 import org.jose4j.lang.JoseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -14,9 +15,6 @@ import java.util.UUID;
  * Created by alex on 16.02.17.
  */
 public class RegSession {
-
-    @Autowired
-    private CommonData commonData;
 
     private String uuid;
     private long creationTime;
@@ -86,7 +84,8 @@ public class RegSession {
 
         JsonWebEncryption jwe = new JsonWebEncryption();
         jwe.setPayload(claims.toJson());
-        jwe.setKey(commonData.aesKey);
+        //jwe.setKey(regSessions.aesKey);
+        jwe.setKey(new AesKey("1234567887654321".getBytes()));
         jwe.setAlgorithmHeaderValue(KeyManagementAlgorithmIdentifiers.A128KW);
         jwe.setEncryptionMethodHeaderParameter(ContentEncryptionAlgorithmIdentifiers.AES_128_CBC_HMAC_SHA_256);
 

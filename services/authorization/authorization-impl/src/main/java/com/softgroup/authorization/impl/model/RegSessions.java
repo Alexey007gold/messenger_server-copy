@@ -11,9 +11,8 @@ import java.util.Map;
  */
 
 @Component
-public class CommonData {
+public class RegSessions {
     private Map<String, RegSession> regSessionMap = new HashMap<>();
-    public final AesKey aesKey = new AesKey("superKeyyeKrepus".getBytes());
 
     public RegSession createRegSession(String phoneNumber, String deviceID, String localeCode) {
         RegSession regSession = new RegSession(phoneNumber, deviceID, localeCode);

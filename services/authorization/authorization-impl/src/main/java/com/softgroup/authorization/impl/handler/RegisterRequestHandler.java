@@ -3,17 +3,12 @@ package com.softgroup.authorization.impl.handler;
 import com.softgroup.authorization.api.message.RegisterRequest;
 import com.softgroup.authorization.api.message.RegisterResponse;
 import com.softgroup.authorization.api.router.AuthorizationRequestHandler;
-import com.softgroup.authorization.impl.model.CommonData;
-import com.softgroup.authorization.impl.model.RegSession;
-import com.softgroup.common.protocol.ActionHeader;
+import com.softgroup.authorization.impl.model.RegSessions;
 import com.softgroup.common.protocol.Request;
 import com.softgroup.common.protocol.Response;
-import com.softgroup.common.protocol.ResponseStatus;
 import com.softgroup.common.router.api.AbstractRequestHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 /**
  * Created by alex on 23.02.17.
@@ -23,7 +18,7 @@ import java.util.UUID;
 public class RegisterRequestHandler extends AbstractRequestHandler<RegisterRequest, RegisterResponse> implements AuthorizationRequestHandler {
 
     @Autowired
-    private CommonData commonData;
+    private RegSessions regSessions;
 
     @Override
     public String getName() {
