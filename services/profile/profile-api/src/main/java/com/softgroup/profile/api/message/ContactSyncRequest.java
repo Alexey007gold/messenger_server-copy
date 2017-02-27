@@ -1,8 +1,7 @@
 package com.softgroup.profile.api.message;
 
-import com.softgroup.profile.api.model.Contact;
+import com.softgroup.profile.api.DTO.ContactDTO;
 import com.softgroup.common.protocol.RequestData;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 
@@ -10,16 +9,15 @@ import java.util.ArrayList;
  * Created by alex on 26.02.17.
  */
 
-@Component
 public class ContactSyncRequest implements RequestData {
 
 	private static final long serialVersionUID = 4895237867750981751L;
 
     private String token;
 
-	private ArrayList<Contact> addedContacts;
+	private ArrayList<ContactDTO> addedContacts;
 
-	private ArrayList<Contact> removedContacts;
+	private ArrayList<ContactDTO> removedContacts;
 
     public String getToken() {
         return token;
@@ -29,19 +27,19 @@ public class ContactSyncRequest implements RequestData {
         this.token = token;
     }
 
-    public ArrayList<Contact> getAddedContacts() {
+    public ArrayList<ContactDTO> getAddedContacts() {
         return addedContacts;
     }
 
-    public void setAddedContacts(ArrayList<Contact> addedContacts) {
+    public void setAddedContacts(ArrayList<ContactDTO> addedContacts) {
         this.addedContacts = addedContacts;
     }
 
-    public ArrayList<Contact> getRemovedContacts() {
+    public ArrayList<ContactDTO> getRemovedContacts() {
         return removedContacts;
     }
 
-    public void setRemovedContacts(ArrayList<Contact> removedContacts) {
+    public void setRemovedContacts(ArrayList<ContactDTO> removedContacts) {
         this.removedContacts = removedContacts;
     }
 }

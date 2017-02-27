@@ -1,9 +1,9 @@
-package com.softgroup.profile.api.model;
+package com.softgroup.profile.api.DTO;
 
 /**
  * Created by alex on 26.02.17.
  */
-public class Contact {
+public class ContactDTO {
     private String user;
 
     private String name;
