@@ -17,7 +17,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.alex.koveckiy</groupId>
+            <groupId>com.alex_koveckiy</groupId>
             <artifactId>common-exceptions</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

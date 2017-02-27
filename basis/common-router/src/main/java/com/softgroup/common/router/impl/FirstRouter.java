@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class MainRouter extends AbstractRouterHandler<CommonRouterHandler> {
+public class FirstRouter extends AbstractRouterHandler<CommonRouterHandler> {
 
     @Override
     public String getName() {

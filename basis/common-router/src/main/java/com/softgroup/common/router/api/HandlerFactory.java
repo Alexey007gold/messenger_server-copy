@@ -13,16 +13,16 @@ import java.util.Map;
  */
 
 @Component
-public class HandlerFactory {
+public class HandlerFactory<T extends Handler> {
 
     @Autowired
-    private List<Handler> handlers;
+    private List<T> handlers;
 
-    private Map<String, Handler> handlerMap = new HashMap<>();
+    private Map<String, T> handlerMap = new HashMap<>();
 
     @PostConstruct
     public void init() {
-        for (Handler handler : handlers) {
+        for (T handler : handlers) {
             handlerMap.put(handler.getName(), handler);
         }
     }
