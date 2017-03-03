@@ -17,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-@RequestMapping(path = "",
-        method = RequestMethod.POST,
+@RequestMapping(method = RequestMethod.POST,
         consumes = MediaType.APPLICATION_JSON_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
 public class MyRestController {
@@ -26,7 +25,7 @@ public class MyRestController {
     @Autowired
     private FirstRouter firstRouter;
 
-    @RequestMapping(path = "")
+    @RequestMapping(path = "server")
     public Response<?> getRequest(@RequestBody final Request<?> request) {
         try {
             return firstRouter.handle(request);
