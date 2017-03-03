@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ContactSyncRequestHandler extends AbstractRequestHandler<ContactSyncRequest, ContactSyncResponse>
-        implements ProfileRequestHandler {
+        implements ProfileRequestHandler<ContactSyncResponse> {
 
 
     @Override

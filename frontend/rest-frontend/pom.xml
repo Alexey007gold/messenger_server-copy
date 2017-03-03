@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.alex_koveckiy</groupId>
+        <artifactId>frontend</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>rest-frontend</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <packaging>war</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.alex_koveckiy</groupId>
+            <artifactId>common-datamapper</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alex_koveckiy</groupId>
+            <artifactId>common-exceptions</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alex_koveckiy</groupId>
+            <artifactId>common-protocol</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alex_koveckiy</groupId>
+            <artifactId>common-router</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alex_koveckiy</groupId>
+            <artifactId>authorization-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alex_koveckiy</groupId>
+            <artifactId>authorization-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alex_koveckiy</groupId>
+            <artifactId>profile-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alex_koveckiy</groupId>
+            <artifactId>profile-impl</artifactId>
+        </dependency>
+    </dependencies>
+
+    
+</project>

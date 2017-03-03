@@ -6,20 +6,18 @@
 
     <parent>
         <groupId>com.alex_koveckiy</groupId>
-        <artifactId>profile</artifactId>
+        <artifactId>services</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>profile-api</artifactId>
+    <artifactId>profile</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.alex_koveckiy</groupId>
-            <artifactId>common-router</artifactId>
-        </dependency>
-    </dependencies>
+    <modules>
+        <module>profile-api</module>
+        <module>profile-impl</module>
+    </modules>
 
 </project>

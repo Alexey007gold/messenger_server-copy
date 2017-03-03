@@ -14,7 +14,7 @@ public class FirstRouter extends AbstractRouterHandler<CommonRouterHandler> {
 
     @Override
     public String getName() {
-        return "main";
+        return "first_router";
     }
 
     @Override

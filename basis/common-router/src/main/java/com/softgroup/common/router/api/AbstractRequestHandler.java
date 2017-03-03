@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.ParameterizedType;
 
-public abstract class AbstractRequestHandler<T extends RequestData, R extends ResponseData> implements RequestHandler {
+public abstract class AbstractRequestHandler<T extends RequestData, R extends ResponseData> implements RequestHandler<R> {
 
     @Autowired
     private DataMapper dataMapper;
@@ -18,11 +18,10 @@ public abstract class AbstractRequestHandler<T extends RequestData, R extends Re
     @Autowired
     protected HandlerFactory<RequestHandler> handlerFactory;
 
-    private Class<T> clazz;
+    private final Class<T> clazz = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
     @Override
     public Response<?> handle(Request<?> msg) {
-        clazz = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         Request<T> request = new Request<>();
         request.setHeader(msg.getHeader());
         request.setData(dataMapper.convert(msg.getData(), clazz));
