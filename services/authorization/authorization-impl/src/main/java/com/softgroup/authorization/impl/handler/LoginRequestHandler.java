@@ -15,8 +15,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class LoginRequestHandler extends AbstractRequestHandler<LoginRequest, LoginResponse> implements AuthorizationRequestHandler {
-
+public class LoginRequestHandler extends AbstractRequestHandler<LoginRequest, LoginResponse> implements AuthorizationRequestHandler<LoginResponse> {
 
     @Autowired
     private RegSessions regSessions;

@@ -15,7 +15,8 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class SmsConfirmRequestHandler extends AbstractRequestHandler<SmsConfirmRequest, SmsConfirmResponse> implements AuthorizationRequestHandler {
+public class SmsConfirmRequestHandler extends AbstractRequestHandler<SmsConfirmRequest, SmsConfirmResponse> implements AuthorizationRequestHandler<SmsConfirmResponse> {
+
     @Autowired
     private RegSessions regSessions;
 

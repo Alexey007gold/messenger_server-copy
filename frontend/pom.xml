@@ -14,7 +14,54 @@
     <version>1.0-SNAPSHOT</version>
 
     <packaging>pom</packaging>
-    <name>frontend</name>
 
-    
+    <modules>
+        <module>rest-frontend</module>
+        <module>ws-frontend</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.alex_koveckiy</groupId>
+                <artifactId>common-datamapper</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alex_koveckiy</groupId>
+                <artifactId>common-exceptions</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alex_koveckiy</groupId>
+                <artifactId>common-protocol</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alex_koveckiy</groupId>
+                <artifactId>common-router</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alex_koveckiy</groupId>
+                <artifactId>authorization-api</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alex_koveckiy</groupId>
+                <artifactId>authorization-impl</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alex_koveckiy</groupId>
+                <artifactId>profile-api</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alex_koveckiy</groupId>
+                <artifactId>profile-impl</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

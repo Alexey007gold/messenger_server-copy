@@ -27,7 +27,7 @@ public class HandlerFactoryImpl<T extends Handler> implements HandlerFactory<T> 
         }
     }
 
-    public Handler getHandler(String name) {
+    public T getHandler(String name) {
         return handlerMap.get(name);
     }
 
