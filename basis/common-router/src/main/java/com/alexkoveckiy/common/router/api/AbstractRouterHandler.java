@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public abstract class AbstractRouterHandler<T extends Handler> implements RouterHandler {
 
     @Autowired
-    private HandlerFactory<T> handlerFactory;
+    private HandlerFactory handlerFactoryByCommand;
 
     @Override
 	public Response<?> handle(Request<?> msg) {
-		return handlerFactory.getHandler(msg).handle(msg);
+		return handlerFactoryByCommand.getHandler(msg).handle(msg);
 	}
 }

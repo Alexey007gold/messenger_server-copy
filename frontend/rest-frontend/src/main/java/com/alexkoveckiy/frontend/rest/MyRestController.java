@@ -3,6 +3,7 @@ package com.alexkoveckiy.frontend.rest;
 import com.alexkoveckiy.common.protocol.Request;
 import com.alexkoveckiy.common.protocol.Response;
 import com.alexkoveckiy.common.protocol.ResponseStatus;
+import com.alexkoveckiy.common.router.api.Handler;
 import com.alexkoveckiy.common.router.impl.FirstRouter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MyRestController {
 
     @Autowired
-    private FirstRouter firstRouter;
+    private Handler firstRouter;
 
     @RequestMapping(path = "server")
     public Response<?> getRequest(@RequestBody final Request<?> request) {
