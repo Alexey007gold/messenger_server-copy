@@ -16,9 +16,4 @@ public class FirstRouter extends AbstractRouterHandler<CommonRouterHandler> {
     public String getName() {
         return "first_router";
     }
-
-    @Override
-    public String getRouteKey(Request<?> msg) {
-        return msg.getHeader().getType();
-    }
 }

@@ -1,5 +1,6 @@
 package com.alexkoveckiy.common.router.api;
 
+import com.alexkoveckiy.common.protocol.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ import java.util.Map;
  */
 
 @Component
-public class HandlerFactoryImpl<T extends Handler> implements HandlerFactory<T> {
+public class HandlerFactoryImpl<T extends Handler> extends HandlerFactory<T> {
 
     @Autowired
     private List<T> handlers;
@@ -27,8 +28,12 @@ public class HandlerFactoryImpl<T extends Handler> implements HandlerFactory<T> 
         }
     }
 
-    public T getHandler(String name) {
-        return handlerMap.get(name);
+    public T getHandler(final Request<?> msg) {
+        return handlerMap.get(getRouteKey(msg));
+    }
+
+    public String getRouteKey(final Request<?> msg) {
+        return msg.getHeader().getCommand();
     }
 
 }

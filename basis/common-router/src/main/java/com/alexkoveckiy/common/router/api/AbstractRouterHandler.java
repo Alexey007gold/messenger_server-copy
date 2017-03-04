@@ -11,6 +11,6 @@ public abstract class AbstractRouterHandler<T extends Handler> implements Router
 
     @Override
 	public Response<?> handle(Request<?> msg) {
-		return handlerFactory.getHandler(getRouteKey(msg)).handle(msg);
+		return handlerFactory.getHandler(msg).handle(msg);
 	}
 }

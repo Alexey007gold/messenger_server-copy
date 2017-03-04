@@ -1,8 +1,11 @@
 package com.alexkoveckiy.common.router.api;
 
+import com.alexkoveckiy.common.protocol.Request;
+
 /**
  * Created by alex on 27.02.17.
  */
-public interface HandlerFactory<T extends Handler> {
-    T getHandler(String name);
+public abstract class HandlerFactory<T extends Handler> {
+    abstract T getHandler(final Request<?> msg);
+    abstract String getRouteKey(final Request<?> msg);
 }

@@ -15,9 +15,6 @@ public abstract class AbstractRequestHandler<T extends RequestData, R extends Re
     @Autowired
     private DataMapper dataMapper;
 
-    @Autowired
-    protected HandlerFactory<RequestHandler> handlerFactory;
-
     private final Class<T> clazz = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
     @Override
