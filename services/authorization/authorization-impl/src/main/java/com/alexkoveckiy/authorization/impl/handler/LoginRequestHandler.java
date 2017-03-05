@@ -61,10 +61,10 @@ public class LoginRequestHandler extends AbstractRequestHandler<LoginRequest, Lo
             else {
                 status = new ResponseStatus(404, "Not Found");
             }
-        } catch (JoseException ignored) {
+        } catch (JoseException e) {
             header = null;
             data = null;
-            status = new ResponseStatus(400, "Bad Request");
+            status = new ResponseStatus(500, "Internal server error");
         }
         return new Response<>(header, data, status);
     }
