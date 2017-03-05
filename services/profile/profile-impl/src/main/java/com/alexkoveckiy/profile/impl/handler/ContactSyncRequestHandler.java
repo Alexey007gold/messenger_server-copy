@@ -23,7 +23,7 @@ public class ContactSyncRequestHandler extends AbstractRequestHandler<ContactSyn
     }
 
     @Override
-    public Response<ContactSyncResponse> process(Request<?> msg) {
+    public Response<ContactSyncResponse> process(Request<ContactSyncRequest> msg) {
         return null;
     }
 }
