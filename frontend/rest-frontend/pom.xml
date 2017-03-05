@@ -34,6 +34,10 @@
         </dependency>
         <dependency>
             <groupId>com.alex_koveckiy</groupId>
+            <artifactId>common-dao</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alex_koveckiy</groupId>
             <artifactId>authorization-api</artifactId>
         </dependency>
         <dependency>
