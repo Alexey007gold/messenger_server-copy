@@ -1,6 +1,7 @@
 package com.alexkoveckiy.common.dao.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by alex on 05.03.17.
@@ -8,7 +9,9 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "contacts")
-public class ContactEntity {
+public class ContactEntity implements Serializable {
+
+    private static final long serialVersionUID = -7753889542769024084L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
