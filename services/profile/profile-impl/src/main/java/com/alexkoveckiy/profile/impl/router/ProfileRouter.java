@@ -1,7 +1,8 @@
 package com.alexkoveckiy.profile.impl.router;
 
 import com.alexkoveckiy.common.router.api.AbstractRouterHandler;
-import com.alexkoveckiy.profile.api.router.ProfileRouterHandler;
+import com.alexkoveckiy.common.router.api.CommonRouterHandler;
+import com.alexkoveckiy.common.router.api.RequestHandler;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class ProfileRouter extends AbstractRouterHandler<ProfileRouterHandler> {
+public class ProfileRouter extends AbstractRouterHandler<RequestHandler> implements CommonRouterHandler {
 
     @Override
     public String getName() {

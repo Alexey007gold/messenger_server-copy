@@ -1,6 +1,6 @@
 package com.alexkoveckiy.profile.api.router;
 
-import com.alexkoveckiy.common.router.api.CommonRouterHandler;
+import com.alexkoveckiy.common.router.api.RouterHandler;
 
-public interface ProfileRouterHandler extends CommonRouterHandler {
+public interface ProfileRouterHandler extends RouterHandler {
 }

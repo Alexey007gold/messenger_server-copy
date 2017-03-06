@@ -16,7 +16,7 @@ public abstract class HandlerFactory<T extends Handler> {
     @Autowired
     private List<T> handlers;
 
-    protected Map<String, T> handlerMap = new HashMap<>();
+    private Map<String, T> handlerMap = new HashMap<>();
 
     @PostConstruct
     public void init() {

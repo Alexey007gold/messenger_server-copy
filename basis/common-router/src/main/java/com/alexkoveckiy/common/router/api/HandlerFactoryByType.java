@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class HandlerFactoryByType extends HandlerFactory<RouterHandler> {
+public class HandlerFactoryByType<T extends RouterHandler> extends HandlerFactory<T> {
 
     @Override
     protected String getRouteKey(final Request<?> msg) {

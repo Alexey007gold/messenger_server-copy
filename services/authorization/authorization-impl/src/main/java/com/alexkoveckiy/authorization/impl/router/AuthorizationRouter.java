@@ -1,7 +1,8 @@
 package com.alexkoveckiy.authorization.impl.router;
 
-import com.alexkoveckiy.authorization.api.router.AuthorizationRouterHandler;
 import com.alexkoveckiy.common.router.api.AbstractRouterHandler;
+import com.alexkoveckiy.common.router.api.CommonRouterHandler;
+import com.alexkoveckiy.common.router.api.RequestHandler;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class AuthorizationRouter extends AbstractRouterHandler<AuthorizationRouterHandler> {
+public class AuthorizationRouter extends AbstractRouterHandler<RequestHandler> implements CommonRouterHandler {
 
     @Override
     public String getName() {
