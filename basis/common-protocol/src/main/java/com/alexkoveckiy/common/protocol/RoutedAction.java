@@ -19,7 +19,9 @@ public class RoutedAction<T extends Serializable> extends Action<T> {
     }
 
     public void setRoutingData(RoutingData routingData) {
-	    if (this.routingData == null)
-	        this.routingData = routingData;
+	    if (this.routingData != null)
+	        throw new IllegalStateException("RoutingData is already set!");
+
+	    this.routingData = routingData;
     }
 }
