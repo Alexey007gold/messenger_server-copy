@@ -69,6 +69,14 @@ public class RegSession {
         return phoneNumber;
     }
 
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public String getLocale() {
+        return locale;
+    }
+
     public boolean hasExpired() {
         return System.currentTimeMillis() - creationTime >= timeOut * 1000;
     }
@@ -84,7 +92,6 @@ public class RegSession {
         JsonWebEncryption jwe = new JsonWebEncryption();
         jwe.setPayload(claims.toJson());
         jwe.setKey(commonData.aesKey);
-//        jwe.setKey(new AesKey("1234567887654321".getBytes()));
         jwe.setAlgorithmHeaderValue(KeyManagementAlgorithmIdentifiers.A128KW);
         jwe.setEncryptionMethodHeaderParameter(ContentEncryptionAlgorithmIdentifiers.AES_128_CBC_HMAC_SHA_256);
 

@@ -26,9 +26,6 @@ public class RegisterRequestHandler extends AbstractRequestHandler<RegisterReque
     @Autowired
     private RegSessions regSessions;
 
-    @Autowired
-    private UserRepository userRepository;
-
     @Override
     public String getName() {
         return "register";
@@ -36,9 +33,9 @@ public class RegisterRequestHandler extends AbstractRequestHandler<RegisterReque
 
     @Override
     public Response<RegisterResponse> process(Request<RegisterRequest> msg) {
-        ActionHeader header = null;
-        RegisterResponse data = null;
-        ResponseStatus status = null;
+        ActionHeader header;
+        RegisterResponse data;
+        ResponseStatus status;
 
         try {
             String phoneNumber = msg.getData().getPhoneNumber();

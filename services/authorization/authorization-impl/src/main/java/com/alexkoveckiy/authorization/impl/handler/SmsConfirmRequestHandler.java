@@ -3,16 +3,16 @@ package com.alexkoveckiy.authorization.impl.handler;
 import com.alexkoveckiy.authorization.api.message.SmsConfirmRequest;
 import com.alexkoveckiy.authorization.api.message.SmsConfirmResponse;
 import com.alexkoveckiy.authorization.api.router.AuthorizationRequestHandler;
-import com.alexkoveckiy.authorization.impl.model.CommonData;
 import com.alexkoveckiy.authorization.impl.model.RegSession;
 import com.alexkoveckiy.authorization.impl.model.RegSessions;
 import com.alexkoveckiy.common.dao.entities.UserEntity;
-import com.alexkoveckiy.common.dao.repositories.UserRepository;
+import com.alexkoveckiy.common.dao.service.UserService;
 import com.alexkoveckiy.common.protocol.ActionHeader;
 import com.alexkoveckiy.common.protocol.Request;
 import com.alexkoveckiy.common.protocol.Response;
 import com.alexkoveckiy.common.protocol.ResponseStatus;
 import com.alexkoveckiy.common.router.api.AbstractRequestHandler;
+import com.alexkoveckiy.common.token.api.TokenHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,10 +29,10 @@ public class SmsConfirmRequestHandler extends AbstractRequestHandler<SmsConfirmR
     private RegSessions regSessions;
 
     @Autowired
-    private CommonData commonData;
+    private TokenHandler tokenHandler;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Override
     public String getName() {
@@ -51,8 +51,10 @@ public class SmsConfirmRequestHandler extends AbstractRequestHandler<SmsConfirmR
 
             RegSession regSession = regSessions.takeRegSession(uuid);
             if (regSession != null && !regSession.hasExpired() && regSession.getAuthCode() == authCode) {
-                userRepository.save(new UserEntity(regSession.getPhoneNumber()));
-                String deviceToken = regSession.newDeviceToken(commonData);
+                userService.save(new UserEntity(regSession.getPhoneNumber()));
+                String deviceToken = tokenHandler.createDeviceToken(regSession.getPhoneNumber(),
+                        regSession.getDeviceId(),
+                        regSession.getLocale());
 
                 header = new ActionHeader(UUID.randomUUID().toString(),
                         msg.getHeader().getUuid(),
@@ -61,7 +63,6 @@ public class SmsConfirmRequestHandler extends AbstractRequestHandler<SmsConfirmR
                         "HTTP/1.1");
                 data = new SmsConfirmResponse(deviceToken);
                 status = new ResponseStatus(200, "OK");
-                status.setMessage("OK");
             } else {
                 status = new ResponseStatus(403, "Forbidden");
             }
