@@ -1,5 +1,6 @@
 package com.alexkoveckiy.common.dao.entities;
 
+import javax.persistence.Entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -9,7 +10,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "contacts")
-public class ContactEntity implements Serializable {
+public class ContactEntity implements Serializable, EntityInterface {
 
     private static final long serialVersionUID = -7753889542769024084L;
 
