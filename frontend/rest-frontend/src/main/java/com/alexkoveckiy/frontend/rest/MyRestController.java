@@ -36,7 +36,6 @@ public class MyRestController {
         try {
             if (!request.getHeader().getType().equals("authorization"))
                 request.setRoutingData(getRoutingData(token));
-            tokenHandler.createTemporaryToken("");
             return firstRouter.handle(request);
         } catch (JoseException e) {
             return new Response<>(null, null, new ResponseStatus(403, "Forbidden"));
