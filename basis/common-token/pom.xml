@@ -6,23 +6,14 @@
 
     <parent>
         <groupId>com.alex_koveckiy</groupId>
-        <artifactId>messenger_server</artifactId>
+        <artifactId>basis</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>basis</artifactId>
+    <artifactId>common-token</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <packaging>pom</packaging>
-    <name>basis</name>
+    <packaging>jar</packaging>
 
-    <modules>
-        <module>common-exceptions</module>
-        <module>common-datamapper</module>
-        <module>common-router</module>
-        <module>common-protocol</module>
-        <module>common-dao</module>
-        <module>common-token</module>
-    </modules>
-
+    
 </project>
