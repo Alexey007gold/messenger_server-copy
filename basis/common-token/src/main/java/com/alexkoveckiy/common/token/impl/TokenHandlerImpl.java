@@ -1,5 +1,6 @@
 package com.alexkoveckiy.common.token.impl;
 
+import com.alexkoveckiy.common.dao.repositories.TokenRepository;
 import com.alexkoveckiy.common.token.api.TokenHandler;
 import org.jose4j.jwe.ContentEncryptionAlgorithmIdentifiers;
 import org.jose4j.jwe.JsonWebEncryption;
@@ -9,6 +10,7 @@ import org.jose4j.jwt.MalformedClaimException;
 import org.jose4j.jwt.consumer.InvalidJwtException;
 import org.jose4j.keys.AesKey;
 import org.jose4j.lang.JoseException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -20,13 +22,18 @@ public class TokenHandlerImpl implements TokenHandler {
 
     private final AesKey aesKey = new AesKey("superKeyyeKrepus".getBytes());
 
+    @Autowired
+    private TokenService tokenService;
+
     @Override
-    public String createDeviceToken(String phoneNumber, String deviceId, String locale) throws JoseException {
+    public String createDeviceToken(String phoneNumber, String deviceId, String locale) throws JoseException, MalformedClaimException {
         JwtClaims claims = new JwtClaims();
+        claims.setIssuedAtToNow();
         claims.setClaim("phone_number", phoneNumber);
         claims.setClaim("device_id", deviceId);
         claims.setClaim("locale_code", locale);
 
+        tokenService.save(new TokenEntity(phoneNumber, claims.getIssuedAt()));
         return encrypt(claims);
     }
 
@@ -54,7 +61,11 @@ public class TokenHandlerImpl implements TokenHandler {
 
     public String getPhoneNumberFromDeviceToken(String token) throws JoseException, InvalidJwtException, MalformedClaimException {
         JwtClaims claims = getClaimsFromToken(token);
-        return claims.getStringClaimValue("phone_number");
+        String phoneNumber = claims.getStringClaimValue("phone_number");
+        TokenEntity tokenEntity = tokenService.findOne(phoneNumber);
+        if (tokenEntity.getCreationDate() != claims.getIssuedAt())
+            throw new JoseException("Token is outdated");
+        return phoneNumber;
     }
 
     public String getPhoneNumberFromTemporaryToken(String token) throws JoseException, InvalidJwtException, MalformedClaimException {
