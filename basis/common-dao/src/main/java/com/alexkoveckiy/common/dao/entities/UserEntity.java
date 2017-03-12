@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "users")
-public class UserEntity implements Serializable, EntityInterface {
+public class UserEntity implements EntityInterface {
 
     private static final long serialVersionUID = -1019243451531277705L;
 

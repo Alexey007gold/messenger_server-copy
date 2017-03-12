@@ -9,17 +9,21 @@ import java.io.Serializable;
 /**
  * Created by alex on 11.03.17.
  */
-public abstract class BaseService<R extends PagingAndSortingRepository, E extends EntityInterface> {
+public abstract class BaseService<E extends EntityInterface, R extends PagingAndSortingRepository<E, I>, I extends Serializable> {
 
     @Autowired
     protected R repository;
 
     public E save(E entity) {
-        return (E) repository.save(entity);
+        return repository.save(entity);
     }
 
     public Iterable<E> save(Iterable<E> entities) {
         return repository.save(entities);
+    }
+
+    public void delete(I id) {
+        repository.delete(id);
     }
 
     public void delete(E entity) {
@@ -30,11 +34,23 @@ public abstract class BaseService<R extends PagingAndSortingRepository, E extend
         repository.delete(entities);
     }
 
+    public void deleteAll() {
+        repository.deleteAll();
+    }
+
     public Iterable<E> findAll() {
         return repository.findAll();
     }
 
-    public E findOne(Serializable id) {
-        return (E) repository.findOne(id);
+    public void findAll(Iterable<I> ids) {
+        repository.findAll(ids);
+    }
+
+    public E findOne(I id) {
+        return repository.findOne(id);
+    }
+
+    public void exists(I id) {
+        repository.exists(id);
     }
 }

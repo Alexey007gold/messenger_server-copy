@@ -10,7 +10,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "tokens")
-public class TokenEntity implements Serializable, EntityInterface {
+public class TokenEntity implements EntityInterface {
     private static final long serialVersionUID = 3500292805326242961L;
 
     @Id

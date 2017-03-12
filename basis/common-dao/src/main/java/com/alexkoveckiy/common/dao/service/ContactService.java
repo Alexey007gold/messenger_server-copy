@@ -11,7 +11,7 @@ import java.util.List;
  */
 
 @Component
-public class ContactService extends BaseService<ContactRepository, ContactEntity> {
+public class ContactService extends BaseService<ContactEntity, ContactRepository, Long> {
 
     public List<ContactEntity> findByUser(String user) {
         return repository.findByUser(user);
