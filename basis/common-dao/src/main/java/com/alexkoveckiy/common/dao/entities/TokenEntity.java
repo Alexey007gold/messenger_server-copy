@@ -16,18 +16,25 @@ public class TokenEntity implements EntityInterface {
     @Id
     private String phoneNumber;
 
+    private String deviceId;
+
     private Long creationDate;
 
     public TokenEntity() {
     }
 
-    public TokenEntity(String phoneNumber, Long creationDate) {
+    public TokenEntity(String phoneNumber, String deviceId, Long creationDate) {
         this.phoneNumber = phoneNumber;
+        this.deviceId = deviceId;
         this.creationDate = creationDate;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
     }
 
     public Long getCreationDate() {
