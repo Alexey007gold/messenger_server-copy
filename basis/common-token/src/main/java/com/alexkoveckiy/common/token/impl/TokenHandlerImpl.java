@@ -33,7 +33,7 @@ public class TokenHandlerImpl implements TokenHandler {
         claims.setClaim("device_id", deviceId);
         claims.setClaim("locale_code", locale);
 
-        tokenService.save(new TokenEntity(phoneNumber, claims.getIssuedAt()));
+        tokenService.save(new TokenEntity(phoneNumber, deviceId, claims.getIssuedAt()));
         return encrypt(claims);
     }
 
@@ -53,7 +53,7 @@ public class TokenHandlerImpl implements TokenHandler {
 
     private JsonWebEncryption getEncryption() {
         JsonWebEncryption encryption = new JsonWebEncryption();
-        encryption.setKey(new AesKey("superKeyyeKrepus".getBytes()));
+        encryption.setKey(aesKey);
         encryption.setAlgorithmHeaderValue(KeyManagementAlgorithmIdentifiers.A128KW);
         encryption.setEncryptionMethodHeaderParameter(ContentEncryptionAlgorithmIdentifiers.AES_128_CBC_HMAC_SHA_256);
         return encryption;
@@ -62,7 +62,7 @@ public class TokenHandlerImpl implements TokenHandler {
     public String getPhoneNumberFromDeviceToken(String token) throws JoseException, InvalidJwtException, MalformedClaimException {
         JwtClaims claims = getClaimsFromToken(token);
         String phoneNumber = claims.getStringClaimValue("phone_number");
-        TokenEntity tokenEntity = tokenService.findOne(phoneNumber);
+        TokenEntity tokenEntity = tokenService.findByPhoneNumberAndDeviceId(phoneNumber);
         if (tokenEntity.getCreationDate() != claims.getIssuedAt())
             throw new JoseException("Token is outdated");
         return phoneNumber;
