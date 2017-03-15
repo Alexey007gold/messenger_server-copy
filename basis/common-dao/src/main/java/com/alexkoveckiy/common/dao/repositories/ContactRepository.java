@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by alex on 05.03.17.
  */
-public interface ContactRepository extends PagingAndSortingRepository<ContactEntity, Long> {
+public interface ContactRepository extends PagingAndSortingRepository<ContactEntity, String> {
     List<ContactEntity> findByUser(String user);
     List<ContactEntity> findByUserAndNameAndNumber(String user, String name, String number);
 }

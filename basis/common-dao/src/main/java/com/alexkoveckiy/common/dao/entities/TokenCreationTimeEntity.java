@@ -3,34 +3,33 @@ package com.alexkoveckiy.common.dao.entities;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 
 /**
  * Created by alex on 12.03.17.
  */
 @Entity
-@Table(name = "tokens")
-public class TokenEntity implements EntityInterface {
+@Table(name = "tokensCreationTimes")
+public class TokenCreationTimeEntity implements EntityInterface {
     private static final long serialVersionUID = 3500292805326242961L;
 
     @Id
-    private String phoneNumber;
+    private String userId;
 
     private String deviceId;
 
     private Long creationDate;
 
-    public TokenEntity() {
+    public TokenCreationTimeEntity() {
     }
 
-    public TokenEntity(String phoneNumber, String deviceId, Long creationDate) {
-        this.phoneNumber = phoneNumber;
+    public TokenCreationTimeEntity(String userId, String deviceId, Long creationDate) {
+        this.userId = userId;
         this.deviceId = deviceId;
         this.creationDate = creationDate;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getUserId() {
+        return userId;
     }
 
     public String getDeviceId() {
