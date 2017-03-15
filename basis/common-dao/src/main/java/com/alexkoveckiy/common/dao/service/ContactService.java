@@ -11,13 +11,13 @@ import java.util.List;
  */
 
 @Component
-public class ContactService extends BaseService<ContactEntity, ContactRepository, Long> {
+public class ContactService extends BaseService<ContactEntity, ContactRepository, String> {
 
-    public List<ContactEntity> findByUser(String user) {
-        return repository.findByUser(user);
+    public List<ContactEntity> findByUser(String userId) {
+        return repository.findByUserId(userId);
     }
 
-    public List<ContactEntity> findByUserAndNameAndNumber(String user, String name, String number) {
-        return repository.findByUserAndNameAndNumber(user, name, number);
+    public List<ContactEntity> findByUserAndNameAndNumber(String userId, String name, String number) {
+        return repository.findByUserIdAndNameAndNumber(userId, name, number);
     }
 }

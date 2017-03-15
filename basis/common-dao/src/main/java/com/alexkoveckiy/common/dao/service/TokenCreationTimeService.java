@@ -8,5 +8,5 @@ import org.springframework.stereotype.Component;
  * Created by alex on 12.03.17.
  */
 @Component
-public class TokenService extends BaseService<TokenCreationTimeEntity, TokenCreationTimeRepository, String> {
+public class TokenCreationTimeService extends BaseService<TokenCreationTimeEntity, TokenCreationTimeRepository, String> {
 }

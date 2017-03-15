@@ -9,5 +9,5 @@ import java.util.List;
  * Created by alex on 12.03.17.
  */
 public interface TokenCreationTimeRepository extends PagingAndSortingRepository<TokenCreationTimeEntity, String> {
-    List<TokenCreationTimeEntity> findByPhoneNumberAndDeviceId(String phoneNumber, String deviceId);
+    List<TokenCreationTimeEntity> findByUserIdAndDeviceId(String userId, String deviceId);
 }
