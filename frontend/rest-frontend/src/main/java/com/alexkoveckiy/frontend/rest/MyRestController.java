@@ -6,6 +6,7 @@ import com.alexkoveckiy.common.protocol.ResponseStatus;
 import com.alexkoveckiy.common.protocol.RoutingData;
 import com.alexkoveckiy.common.router.impl.FirstRouter;
 import com.alexkoveckiy.common.token.api.TokenHandler;
+import com.alexkoveckiy.common.token.exception.InvalidTokenException;
 import org.jose4j.jwt.MalformedClaimException;
 import org.jose4j.jwt.consumer.InvalidJwtException;
 import org.jose4j.lang.JoseException;
@@ -35,16 +36,12 @@ public class MyRestController {
                                   @RequestBody final Request<?> request) {
         try {
             if (!request.getHeader().getType().equals("authorization"))
-                request.setRoutingData(getRoutingData(token));
+                request.setRoutingData(tokenHandler.getRoutingData(token));
             return firstRouter.handle(request);
-        } catch (JoseException e) {
+        } catch (InvalidTokenException e) {
             return new Response<>(null, null, new ResponseStatus(403, "Forbidden"));
         } catch (Exception e) {
             return new Response<>(null, null, new ResponseStatus(400, "Bad request"));
         }
-    }
-
-    private RoutingData getRoutingData(String token) throws MalformedClaimException, JoseException, InvalidJwtException {
-        return new RoutingData(tokenHandler.getPhoneNumberFromTemporaryToken(token));
     }
 }

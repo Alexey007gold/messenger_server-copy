@@ -8,17 +8,32 @@ import java.io.Serializable;
 public class RoutingData implements Serializable {
     private static final long serialVersionUID = -5850459221736408718L;
 
-    private String number;
+    private String userId;
 
-    public RoutingData(String number) {
-        this.number = number;
+    private String deviceId;
+
+    public RoutingData(String userId, String deviceId) {
+        this.userId = userId;
+        this.deviceId = deviceId;
     }
 
-    public String getNumber() {
-        return number;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
     }
 }

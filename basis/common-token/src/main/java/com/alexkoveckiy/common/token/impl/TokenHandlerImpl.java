@@ -1,12 +1,13 @@
 package com.alexkoveckiy.common.token.impl;
 
 import com.alexkoveckiy.common.dao.repositories.TokenRepository;
+import com.alexkoveckiy.common.protocol.RoutingData;
 import com.alexkoveckiy.common.token.api.TokenHandler;
+import com.alexkoveckiy.common.token.exception.InvalidTokenException;
 import org.jose4j.jwe.ContentEncryptionAlgorithmIdentifiers;
 import org.jose4j.jwe.JsonWebEncryption;
 import org.jose4j.jwe.KeyManagementAlgorithmIdentifiers;
 import org.jose4j.jwt.JwtClaims;
-import org.jose4j.jwt.MalformedClaimException;
 import org.jose4j.jwt.consumer.InvalidJwtException;
 import org.jose4j.keys.AesKey;
 import org.jose4j.lang.JoseException;
@@ -26,29 +27,40 @@ public class TokenHandlerImpl implements TokenHandler {
     private TokenService tokenService;
 
     @Override
-    public String createDeviceToken(String phoneNumber, String deviceId, String locale) throws JoseException, MalformedClaimException {
-        JwtClaims claims = new JwtClaims();
-        claims.setIssuedAtToNow();
-        claims.setClaim("phone_number", phoneNumber);
-        claims.setClaim("device_id", deviceId);
-        claims.setClaim("locale_code", locale);
+    public String createDeviceToken(String userId, String deviceId, String locale) throws InvalidTokenException {
+        try {
+            JwtClaims claims = new JwtClaims();
+            claims.setIssuedAtToNow();
+            claims.setClaim("user_id", userId);
+            claims.setClaim("device_id", deviceId);
+            claims.setClaim("locale_code", locale);
 
-        tokenService.save(new TokenEntity(phoneNumber, deviceId, claims.getIssuedAt()));
-        return encrypt(claims);
+            tokenService.save(new TokenEntity(phoneNumber, deviceId, claims.getIssuedAt()));
+            return encrypt(claims);
+        } catch (Exception e) {
+            throw new InvalidTokenException(e.getMessage());
+        }
     }
 
-    public String createTemporaryToken(String phoneNumber) throws JoseException {
+    @Override
+    public String createTemporaryToken(String userId, String deviceId) throws InvalidTokenException {
         JwtClaims claims = new JwtClaims();
-        claims.setClaim("phone_number", phoneNumber);
+        claims.setClaim("user_id", userId);
+        claims.setClaim("device_id", deviceId);
         claims.setExpirationTimeMinutesInTheFuture(999999999);
 
         return encrypt(claims);
     }
 
-    private String encrypt(JwtClaims claims) throws JoseException {
-        JsonWebEncryption encryption = getEncryption();
-        encryption.setPayload(claims.toJson());
-        return encryption.getCompactSerialization();
+    private String encrypt(JwtClaims claims) throws InvalidTokenException {
+        try {
+            JsonWebEncryption encryption = getEncryption();
+            encryption.setPayload(claims.toJson());
+            return encryption.getCompactSerialization();
+        } catch (Exception e) {
+            throw new InvalidTokenException(e.getMessage());
+        }
+
     }
 
     private JsonWebEncryption getEncryption() {
@@ -59,25 +71,40 @@ public class TokenHandlerImpl implements TokenHandler {
         return encryption;
     }
 
-    public String getPhoneNumberFromDeviceToken(String token) throws JoseException, InvalidJwtException, MalformedClaimException {
-        JwtClaims claims = getClaimsFromToken(token);
-        String phoneNumber = claims.getStringClaimValue("phone_number");
-        TokenEntity tokenEntity = tokenService.findByPhoneNumberAndDeviceId(phoneNumber);
-        if (tokenEntity.getCreationDate() != claims.getIssuedAt())
-            throw new JoseException("Token is outdated");
-        return phoneNumber;
+    @Override
+    public String getUserIdFromDeviceToken(String token) throws InvalidTokenException {
+        try {
+            JwtClaims claims = getClaimsFromToken(token);
+            String userId = claims.getStringClaimValue("user_id");
+            TokenEntity tokenEntity = tokenService.findByUserIdAndDeviceId(userId, claims.getStringClaimValue("device_id"));
+            if (tokenEntity.getCreationDate() != claims.getIssuedAt())
+                throw new InvalidTokenException("Token is outdated");
+            return userId;
+        } catch (Exception e) {
+            throw new InvalidTokenException(e.getMessage());
+        }
     }
 
-    public String getPhoneNumberFromTemporaryToken(String token) throws JoseException, InvalidJwtException, MalformedClaimException {
-        JwtClaims claims = getClaimsFromToken(token);
-        if (claims.getExpirationTime().getValueInMillis() < System.currentTimeMillis())
-            throw new JoseException("Token has expired");
-        return claims.getStringClaimValue("phone_number");
+    @Override
+    public RoutingData getRoutingData(String token) throws InvalidTokenException {
+        try {
+            JwtClaims claims = getClaimsFromToken(token);
+            if (claims.getExpirationTime().getValueInMillis() < System.currentTimeMillis())
+                throw new InvalidTokenException("Token has expired");
+            return new RoutingData(claims.getStringClaimValue("user_id"),
+                    claims.getStringClaimValue("device_id"));
+        } catch (Exception e) {
+            throw new InvalidTokenException(e.getMessage());
+        }
     }
 
-    private JwtClaims getClaimsFromToken(String token) throws JoseException, InvalidJwtException {
-        JsonWebEncryption encryption = getEncryption();
-        encryption.setCompactSerialization(token);
-        return JwtClaims.parse(encryption.getPayload());
+    private JwtClaims getClaimsFromToken(String token) throws InvalidTokenException {
+        try {
+            JsonWebEncryption encryption = getEncryption();
+            encryption.setCompactSerialization(token);
+            return JwtClaims.parse(encryption.getPayload());
+        } catch (Exception e) {
+            throw new InvalidTokenException(e.getMessage());
+        }
     }
 }
