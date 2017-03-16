@@ -1,7 +1,6 @@
 package com.alexkoveckiy.profile.impl;
 
-import com.alexkoveckiy.common.protocol.Request;
-import com.alexkoveckiy.common.router.api.HandlerFactory;
+import com.alexkoveckiy.common.router.api.HandlerFactoryByCommand;
 import com.alexkoveckiy.profile.api.router.ProfileRequestHandler;
 import org.springframework.stereotype.Component;
 
@@ -10,10 +9,5 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class ProfileHandlerFactory extends HandlerFactory<ProfileRequestHandler> {
-
-    @Override
-    protected String getRouteKey(final Request<?> msg) {
-        return msg.getHeader().getCommand();
-    }
+public class ProfileHandlerFactory extends HandlerFactoryByCommand<ProfileRequestHandler> {
 }

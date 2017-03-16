@@ -1,8 +1,7 @@
 package com.alexkoveckiy.authorization.impl;
 
 import com.alexkoveckiy.authorization.api.router.AuthorizationRequestHandler;
-import com.alexkoveckiy.common.protocol.Request;
-import com.alexkoveckiy.common.router.api.HandlerFactory;
+import com.alexkoveckiy.common.router.api.HandlerFactoryByCommand;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,10 +9,5 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class AuthorizationHandlerFactory extends HandlerFactory<AuthorizationRequestHandler> {
-
-    @Override
-    protected String getRouteKey(final Request<?> msg) {
-        return msg.getHeader().getCommand();
-    }
+public class AuthorizationHandlerFactory extends HandlerFactoryByCommand<AuthorizationRequestHandler> {
 }
