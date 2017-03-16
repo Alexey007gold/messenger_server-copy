@@ -1,6 +1,5 @@
 package com.alexkoveckiy.common.token.impl;
 
-import com.alexkoveckiy.common.dao.repositories.TokenRepository;
 import com.alexkoveckiy.common.protocol.RoutingData;
 import com.alexkoveckiy.common.token.api.TokenHandler;
 import com.alexkoveckiy.common.token.exception.InvalidTokenException;
@@ -8,10 +7,7 @@ import org.jose4j.jwe.ContentEncryptionAlgorithmIdentifiers;
 import org.jose4j.jwe.JsonWebEncryption;
 import org.jose4j.jwe.KeyManagementAlgorithmIdentifiers;
 import org.jose4j.jwt.JwtClaims;
-import org.jose4j.jwt.consumer.InvalidJwtException;
 import org.jose4j.keys.AesKey;
-import org.jose4j.lang.JoseException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,8 +19,8 @@ public class TokenHandlerImpl implements TokenHandler {
 
     private final AesKey aesKey = new AesKey("superKeyyeKrepus".getBytes());
 
-    @Autowired
-    private TokenService tokenService;
+    private final String DEVICE_TOKEN = "deviceToken";
+    private final String TEMPORARY_TOKEN = "temporaryToken";
 
     @Override
     public String createDeviceToken(String userId, String deviceId, String locale) throws InvalidTokenException {
@@ -33,9 +29,8 @@ public class TokenHandlerImpl implements TokenHandler {
             claims.setIssuedAtToNow();
             claims.setClaim("user_id", userId);
             claims.setClaim("device_id", deviceId);
-            claims.setClaim("locale_code", locale);
+            claims.setClaim("type", DEVICE_TOKEN);
 
-            tokenService.save(new TokenEntity(phoneNumber, deviceId, claims.getIssuedAt()));
             return encrypt(claims);
         } catch (Exception e) {
             throw new InvalidTokenException(e.getMessage());
@@ -45,8 +40,10 @@ public class TokenHandlerImpl implements TokenHandler {
     @Override
     public String createTemporaryToken(String userId, String deviceId) throws InvalidTokenException {
         JwtClaims claims = new JwtClaims();
+        claims.setIssuedAtToNow();
         claims.setClaim("user_id", userId);
         claims.setClaim("device_id", deviceId);
+        claims.setClaim("type", TEMPORARY_TOKEN);
         claims.setExpirationTimeMinutesInTheFuture(999999999);
 
         return encrypt(claims);
@@ -75,20 +72,20 @@ public class TokenHandlerImpl implements TokenHandler {
     public String getUserIdFromDeviceToken(String token) throws InvalidTokenException {
         try {
             JwtClaims claims = getClaimsFromToken(token);
-            String userId = claims.getStringClaimValue("user_id");
-            TokenEntity tokenEntity = tokenService.findByUserIdAndDeviceId(userId, claims.getStringClaimValue("device_id"));
-            if (tokenEntity.getCreationDate() != claims.getIssuedAt())
-                throw new InvalidTokenException("Token is outdated");
-            return userId;
+            if (!claims.getStringClaimValue("type").equals(DEVICE_TOKEN))
+                throw new InvalidTokenException("This is not Device Token!");
+            return claims.getStringClaimValue("user_id");
         } catch (Exception e) {
             throw new InvalidTokenException(e.getMessage());
         }
     }
 
     @Override
-    public RoutingData getRoutingData(String token) throws InvalidTokenException {
+    public RoutingData getRoutingDataFromTemporaryToken(String token) throws InvalidTokenException {
         try {
             JwtClaims claims = getClaimsFromToken(token);
+            if (!claims.getStringClaimValue("type").equals(TEMPORARY_TOKEN))
+                throw new InvalidTokenException("This is not Temporary Token!");
             if (claims.getExpirationTime().getValueInMillis() < System.currentTimeMillis())
                 throw new InvalidTokenException("Token has expired");
             return new RoutingData(claims.getStringClaimValue("user_id"),

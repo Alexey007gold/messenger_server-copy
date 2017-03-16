@@ -13,6 +13,5 @@ public interface TokenHandler {
     String createDeviceToken(String userId, String deviceId, String locale) throws InvalidTokenException;
     String createTemporaryToken(String userId, String deviceId) throws InvalidTokenException;
     String getUserIdFromDeviceToken(String token) throws InvalidTokenException;
-    String getPhoneNumberFromTemporaryToken(String token) throws InvalidTokenException;
-    RoutingData getRoutingData(String token) throws InvalidTokenException;
+    RoutingData getRoutingDataFromTemporaryToken(String token) throws InvalidTokenException;
 }

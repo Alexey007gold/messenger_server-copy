@@ -36,7 +36,7 @@ public class MyRestController {
                                   @RequestBody final Request<?> request) {
         try {
             if (!request.getHeader().getType().equals("authorization"))
-                request.setRoutingData(tokenHandler.getRoutingData(token));
+                request.setRoutingData(tokenHandler.getRoutingDataFromTemporaryToken(token));
             return firstRouter.handle(request);
         } catch (InvalidTokenException e) {
             return new Response<>(null, null, new ResponseStatus(403, "Forbidden"));
