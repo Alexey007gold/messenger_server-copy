@@ -1,6 +1,8 @@
-package com.alexkoveckiy.common.router.api;
+package com.alexkoveckiy.common.router.impl;
 
 import com.alexkoveckiy.common.protocol.Request;
+import com.alexkoveckiy.common.router.api.ByTypeRouterHandler;
+import com.alexkoveckiy.common.router.api.HandlerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -8,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class HandlerFactoryByType<T extends RouterHandler> extends HandlerFactory<T> {
+public class HandlerFactoryByType extends HandlerFactory<ByTypeRouterHandler> {
 
     @Override
     protected String getRouteKey(final Request<?> msg) {
