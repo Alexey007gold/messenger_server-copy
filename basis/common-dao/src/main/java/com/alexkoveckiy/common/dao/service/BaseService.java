@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * Created by alex on 11.03.17.
  */
-public abstract class BaseService<E extends EntityInterface, R extends PagingAndSortingRepository<E, I>, I extends Serializable> {
+public abstract class BaseService<E extends EntityInterface, R extends PagingAndSortingRepository<E, String>> {
 
     @Autowired
     protected R repository;
@@ -22,7 +22,7 @@ public abstract class BaseService<E extends EntityInterface, R extends PagingAnd
         return repository.save(entities);
     }
 
-    public void delete(I id) {
+    public void delete(String id) {
         repository.delete(id);
     }
 
@@ -42,15 +42,15 @@ public abstract class BaseService<E extends EntityInterface, R extends PagingAnd
         return repository.findAll();
     }
 
-    public void findAll(Iterable<I> ids) {
+    public void findAll(Iterable<String> ids) {
         repository.findAll(ids);
     }
 
-    public E findOne(I id) {
+    public E findOne(String id) {
         return repository.findOne(id);
     }
 
-    public void exists(I id) {
+    public void exists(String id) {
         repository.exists(id);
     }
 }

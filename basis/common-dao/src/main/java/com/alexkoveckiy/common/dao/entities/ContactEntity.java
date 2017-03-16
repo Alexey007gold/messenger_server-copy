@@ -14,7 +14,6 @@ public class ContactEntity implements EntityInterface {
     private static final long serialVersionUID = -7753889542769024084L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     //Whose contact it is

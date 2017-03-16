@@ -47,7 +47,18 @@
             <artifactId>spring-test</artifactId>
             <version>${spring.core.version}</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>4.2.2.RELEASE</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>4.2.2.RELEASE</version>
+        </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -113,7 +124,12 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.24</version>
         </dependency>
-
+        <!-- https://mvnrepository.com/artifact/org.liquibase/liquibase-core -->
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>3.5.3</version>
+        </dependency>
 
     </dependencies>
 
