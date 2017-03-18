@@ -4,6 +4,7 @@ import com.alexkoveckiy.authorization.impl.configuration.AuthorizationImplConfig
 import com.alexkoveckiy.common.dao.configuration.PersistentJPAConfig;
 import com.alexkoveckiy.common.datamapper.configuration.DataMapperConfig;
 import com.alexkoveckiy.common.router.configuration.CommonRouterConfig;
+import com.alexkoveckiy.frontend.rest.security.configuration.CustomSecurityConfigurerAdapter;
 import com.alexkoveckiy.profile.impl.configuration.ProfileImplConfig;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +23,8 @@ import org.springframework.context.annotation.Import;
         CommonRouterConfig.class,
         AuthorizationImplConfig.class,
         ProfileImplConfig.class,
-        PersistentJPAConfig.class
+        PersistentJPAConfig.class,
+        CustomSecurityConfigurerAdapter.class
 })
 public class RestApplicationConfiguration {
 }

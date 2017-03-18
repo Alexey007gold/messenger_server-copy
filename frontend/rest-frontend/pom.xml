@@ -52,6 +52,11 @@
             <groupId>com.alex_koveckiy</groupId>
             <artifactId>profile-impl</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alex_koveckiy</groupId>
+            <artifactId>security</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     
