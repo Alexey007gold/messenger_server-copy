@@ -25,4 +25,6 @@ public abstract class AbstractRequestHandler<T extends RequestData, R extends Re
 
         return process(request);
     }
+
+    protected abstract Response<R> process(Request<T> msg);
 }

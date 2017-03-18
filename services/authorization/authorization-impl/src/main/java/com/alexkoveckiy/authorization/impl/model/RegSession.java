@@ -4,7 +4,6 @@ import org.jose4j.jwe.ContentEncryptionAlgorithmIdentifiers;
 import org.jose4j.jwe.JsonWebEncryption;
 import org.jose4j.jwe.KeyManagementAlgorithmIdentifiers;
 import org.jose4j.jwt.JwtClaims;
-import org.jose4j.keys.AesKey;
 import org.jose4j.lang.JoseException;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -41,8 +40,9 @@ public class RegSession {
     }
 
     private int newAuthCode() {
-        //TODO
-        return 12345;
+        double rand = Math.random();
+        if (rand < 0.1) rand += 0.1;
+        return (int)(rand * 100000);
     }
 
     private int timeOut() {
@@ -67,6 +67,14 @@ public class RegSession {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public String getDeviceId() {
+        return deviceId;
+    }
+
+    public String getLocale() {
+        return locale;
     }
 
     public boolean hasExpired() {
