@@ -1,8 +1,9 @@
 package com.alexkoveckiy.common.router.impl;
 
-import com.alexkoveckiy.common.protocol.Request;
 import com.alexkoveckiy.common.router.api.AbstractRouterHandler;
-import com.alexkoveckiy.common.router.api.CommonRouterHandler;
+import com.alexkoveckiy.common.router.api.ByTypeRouterHandler;
+import com.alexkoveckiy.common.router.api.HandlerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,7 +11,10 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class FirstRouter extends AbstractRouterHandler<CommonRouterHandler> {
+public class FirstRouter extends AbstractRouterHandler<ByTypeRouterHandler> {
+
+    @Autowired
+    private HandlerFactoryByType handlerFactory;
 
     @Override
     public String getName() {
@@ -18,7 +22,7 @@ public class FirstRouter extends AbstractRouterHandler<CommonRouterHandler> {
     }
 
     @Override
-    public String getRouteKey(Request<?> msg) {
-        return msg.getHeader().getType();
+    protected HandlerFactory<ByTypeRouterHandler> getHandlerFactory() {
+        return handlerFactory;
     }
 }
