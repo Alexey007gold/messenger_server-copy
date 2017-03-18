@@ -5,5 +5,5 @@ import java.io.Serializable;
 /**
  * Created by alex on 11.03.17.
  */
-public interface EntityInterface {
+public interface EntityInterface extends Serializable {
 }

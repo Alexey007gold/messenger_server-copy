@@ -9,5 +9,5 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class UserService extends BaseService<UserRepository, UserEntity> {
+public class UserService extends BaseService<UserEntity, UserRepository> {
 }

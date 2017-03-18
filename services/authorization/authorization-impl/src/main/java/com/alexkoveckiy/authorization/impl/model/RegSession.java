@@ -72,24 +72,4 @@ public class RegSession {
     public boolean hasExpired() {
         return System.currentTimeMillis() - creationTime >= timeOut * 1000;
     }
-
-    public String newDeviceToken() {
-        JwtClaims claims = new JwtClaims();
-        claims.setClaim("phone_number", phoneNumber);
-        claims.setClaim("device_id", deviceId);
-        claims.setClaim("locale_code", locale);
-        claims.setClaim("auth_code", authCode);
-        claims.setClaim("registration_request_uuid", uuid);
-
-        JsonWebEncryption jwe = new JsonWebEncryption();
-        jwe.setPayload(claims.toJson());
-        //jwe.setKey(regSessions.aesKey);
-        jwe.setKey(new AesKey("1234567887654321".getBytes()));
-        jwe.setAlgorithmHeaderValue(KeyManagementAlgorithmIdentifiers.A128KW);
-        jwe.setEncryptionMethodHeaderParameter(ContentEncryptionAlgorithmIdentifiers.AES_128_CBC_HMAC_SHA_256);
-
-        try {
-            return jwe.getCompactSerialization();
-        } catch (JoseException e) {return null;}
-    }
 }

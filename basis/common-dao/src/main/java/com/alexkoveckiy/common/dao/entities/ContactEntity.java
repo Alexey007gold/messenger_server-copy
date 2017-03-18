@@ -2,7 +2,6 @@ package com.alexkoveckiy.common.dao.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * Created by alex on 05.03.17.
@@ -10,16 +9,15 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "contacts")
-public class ContactEntity implements Serializable, EntityInterface {
+public class ContactEntity implements EntityInterface {
 
     private static final long serialVersionUID = -7753889542769024084L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     //Whose contact it is
-    private String user;
+    private String userId;
 
     //Contact name
     private String name;
@@ -30,26 +28,22 @@ public class ContactEntity implements Serializable, EntityInterface {
     public ContactEntity() {
     }
 
-    public ContactEntity(String user, String name, String number) {
-        this.user = user;
+    public ContactEntity(String userId, String name, String number) {
+        this.userId = userId;
         this.name = name;
         this.number = number;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getUserId() {
+        return userId;
     }
 
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getName() {
