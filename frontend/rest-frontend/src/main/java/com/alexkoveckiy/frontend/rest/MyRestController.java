@@ -1,5 +1,6 @@
 package com.alexkoveckiy.frontend.rest;
 
+import com.alexkoveckiy.authorization.impl.router.AuthorizationRouter;
 import com.alexkoveckiy.common.protocol.Request;
 import com.alexkoveckiy.common.protocol.Response;
 import com.alexkoveckiy.common.protocol.ResponseStatus;
@@ -26,10 +27,13 @@ public class MyRestController {
     @Autowired
     private FirstRouter firstRouter;
 
+    @Autowired
+    private AuthorizationRouter authorizationRouter;
+
     @RequestMapping(path = "public")
     public Response<?> processPublicRequest(@RequestBody final Request<?> request) {
         try {
-            return firstRouter.handle(request);
+            return authorizationRouter.handle(request);
         } catch (Exception e) {
             return new Response<>(null, null, new ResponseStatus(400, "Bad request"));
         }
