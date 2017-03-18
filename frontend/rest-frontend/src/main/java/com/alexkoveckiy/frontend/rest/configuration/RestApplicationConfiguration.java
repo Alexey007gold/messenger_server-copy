@@ -1,6 +1,7 @@
 package com.alexkoveckiy.frontend.rest.configuration;
 
 import com.alexkoveckiy.authorization.impl.configuration.AuthorizationImplConfig;
+import com.alexkoveckiy.common.dao.configuration.PersistentJPAConfig;
 import com.alexkoveckiy.common.datamapper.configuration.DataMapperConfig;
 import com.alexkoveckiy.common.router.configuration.CommonRouterConfig;
 import com.alexkoveckiy.profile.impl.configuration.ProfileImplConfig;
@@ -20,7 +21,8 @@ import org.springframework.context.annotation.Import;
 @Import({DataMapperConfig.class,
         CommonRouterConfig.class,
         AuthorizationImplConfig.class,
-        ProfileImplConfig.class
+        ProfileImplConfig.class,
+        PersistentJPAConfig.class
 })
 public class RestApplicationConfiguration {
 }
