@@ -2,6 +2,7 @@ package com.alexkoveckiy.common.dao.configuration;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -20,6 +21,7 @@ import java.util.Properties;
 
 @Configuration
 @EnableJpaRepositories("com.alexkoveckiy.common.dao")
+@ComponentScan(basePackages = "com.alexkoveckiy.common.dao")
 @EnableTransactionManagement
 public class PersistentJPAConfig {
 

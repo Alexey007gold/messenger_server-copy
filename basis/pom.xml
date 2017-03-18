@@ -22,6 +22,7 @@
         <module>common-router</module>
         <module>common-protocol</module>
         <module>common-dao</module>
+        <module>common-token</module>
     </modules>
 
 </project>
