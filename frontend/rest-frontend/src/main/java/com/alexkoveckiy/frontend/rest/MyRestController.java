@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
 public class MyRestController {
 
     @Autowired
-    private FirstRouter firstRouter;
+    private Handler firstRouter;
 
     @Autowired
     private AuthorizationRouter authorizationRouter;
