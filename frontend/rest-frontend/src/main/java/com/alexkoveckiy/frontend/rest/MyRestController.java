@@ -5,14 +5,11 @@ import com.alexkoveckiy.common.protocol.Response;
 import com.alexkoveckiy.common.protocol.ResponseStatus;
 import com.alexkoveckiy.common.protocol.RoutingData;
 import com.alexkoveckiy.common.router.impl.FirstRouter;
-import com.alexkoveckiy.common.token.api.TokenHandler;
-import com.alexkoveckiy.common.token.exception.InvalidTokenException;
-import org.jose4j.jwt.MalformedClaimException;
-import org.jose4j.jwt.consumer.InvalidJwtException;
-import org.jose4j.lang.JoseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -22,24 +19,27 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(method = RequestMethod.POST,
         consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+        produces = MediaType.APPLICATION_JSON_VALUE,
+        path = "server")
 public class MyRestController {
 
     @Autowired
     private FirstRouter firstRouter;
 
-    @Autowired
-    private TokenHandler tokenHandler;
-
-    @RequestMapping(path = "server")
-    public Response<?> getRequest(@RequestHeader(name = "token", required = false) final String token,
-                                  @RequestBody final Request<?> request) {
+    @RequestMapping(path = "public")
+    public Response<?> processPublicRequest(@RequestBody final Request<?> request) {
         try {
-            if (!request.getHeader().getType().equals("authorization"))
-                request.setRoutingData(tokenHandler.getRoutingDataFromTemporaryToken(token));
             return firstRouter.handle(request);
-        } catch (InvalidTokenException e) {
-            return new Response<>(null, null, new ResponseStatus(403, "Forbidden"));
+        } catch (Exception e) {
+            return new Response<>(null, null, new ResponseStatus(400, "Bad request"));
+        }
+    }
+
+    @RequestMapping(path = "private")
+    public Response<?> processPrivateRequest(@RequestBody final Request<?> request, HttpSession session) {
+        try {
+            request.setRoutingData((RoutingData) session.getAttribute("routing_data"));
+            return firstRouter.handle(request);
         } catch (Exception e) {
             return new Response<>(null, null, new ResponseStatus(400, "Bad request"));
         }
