@@ -1,10 +1,10 @@
 package com.alexkoveckiy.common.datamapper;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.alexkoveckiy.common.datamapper.support.ModelA;
 import com.alexkoveckiy.common.datamapper.support.ModelB;
 import com.alexkoveckiy.common.datamapper.support.ModelWithEnum;
 import com.alexkoveckiy.common.exceptions.MapperException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Test;
 
 import java.util.ArrayList;

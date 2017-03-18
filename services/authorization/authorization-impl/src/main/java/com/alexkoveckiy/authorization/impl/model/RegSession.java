@@ -4,7 +4,6 @@ import org.jose4j.jwe.ContentEncryptionAlgorithmIdentifiers;
 import org.jose4j.jwe.JsonWebEncryption;
 import org.jose4j.jwe.KeyManagementAlgorithmIdentifiers;
 import org.jose4j.jwt.JwtClaims;
-import org.jose4j.keys.AesKey;
 import org.jose4j.lang.JoseException;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -41,8 +40,9 @@ public class RegSession {
     }
 
     private int newAuthCode() {
-        //TODO
-        return 12345;
+        double rand = Math.random();
+        if (rand < 0.1) rand += 0.1;
+        return (int)(rand * 100000);
     }
 
     private int timeOut() {
@@ -69,27 +69,15 @@ public class RegSession {
         return phoneNumber;
     }
 
-    public boolean hasExpired() {
-        return System.currentTimeMillis() - creationTime >= timeOut * 1000;
+    public String getDeviceId() {
+        return deviceId;
     }
 
-    public String newDeviceToken() {
-        JwtClaims claims = new JwtClaims();
-        claims.setClaim("phone_number", phoneNumber);
-        claims.setClaim("device_id", deviceId);
-        claims.setClaim("locale_code", locale);
-        claims.setClaim("auth_code", authCode);
-        claims.setClaim("registration_request_uuid", uuid);
+    public String getLocale() {
+        return locale;
+    }
 
-        JsonWebEncryption jwe = new JsonWebEncryption();
-        jwe.setPayload(claims.toJson());
-        //jwe.setKey(regSessions.aesKey);
-        jwe.setKey(new AesKey("1234567887654321".getBytes()));
-        jwe.setAlgorithmHeaderValue(KeyManagementAlgorithmIdentifiers.A128KW);
-        jwe.setEncryptionMethodHeaderParameter(ContentEncryptionAlgorithmIdentifiers.AES_128_CBC_HMAC_SHA_256);
-
-        try {
-            return jwe.getCompactSerialization();
-        } catch (JoseException e) {return null;}
+    public boolean hasExpired() {
+        return System.currentTimeMillis() - creationTime >= timeOut * 1000;
     }
 }
