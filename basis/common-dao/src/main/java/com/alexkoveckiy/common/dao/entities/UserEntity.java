@@ -1,7 +1,6 @@
 package com.alexkoveckiy.common.dao.entities;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
@@ -19,7 +18,6 @@ public class UserEntity implements EntityInterface {
     private String id;
 
     private String phoneNumber;
-
 
     public UserEntity() {
     }

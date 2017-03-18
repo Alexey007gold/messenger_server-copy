@@ -25,7 +25,6 @@ public abstract class BaseService<E extends EntityInterface, R extends PagingAnd
     public void delete(String id) {
         repository.delete(id);
     }
-
     public void delete(E entity) {
         repository.delete(entity);
     }
