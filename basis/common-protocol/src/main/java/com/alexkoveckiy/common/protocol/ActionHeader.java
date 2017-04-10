@@ -1,9 +1,6 @@
 package com.alexkoveckiy.common.protocol;
 
-import java.io.Serializable;
-
-public class ActionHeader implements Serializable {
-	private static final long serialVersionUID = -6161658016500127613L;
+public class ActionHeader {
 
 	private String uuid;
     private String originUuid;

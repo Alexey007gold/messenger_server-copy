@@ -37,7 +37,7 @@ public class LiquibaseConfig {
         liquibase.setChangeLog(changelogFile);
         liquibase.setContexts("test,dev,prod");
         liquibase.setDataSource(dataSource);
-        liquibase.setDefaultSchema("chat_database");
+        liquibase.setDefaultSchema("chat_database_copy");
         liquibase.setDropFirst(false);
         liquibase.setShouldRun(true);
 

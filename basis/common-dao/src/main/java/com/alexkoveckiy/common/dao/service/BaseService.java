@@ -1,15 +1,13 @@
 package com.alexkoveckiy.common.dao.service;
 
-import com.alexkoveckiy.common.dao.entities.EntityInterface;
+import com.alexkoveckiy.common.dao.entities.BaseEntity;
+import com.alexkoveckiy.common.dao.repositories.BaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.PagingAndSortingRepository;
-
-import java.io.Serializable;
 
 /**
  * Created by alex on 11.03.17.
  */
-public abstract class BaseService<E extends EntityInterface, R extends PagingAndSortingRepository<E, String>> {
+public abstract class BaseService<E extends BaseEntity, R extends BaseRepository<E>> {
 
     @Autowired
     protected R repository;
@@ -41,8 +39,8 @@ public abstract class BaseService<E extends EntityInterface, R extends PagingAnd
         return repository.findAll();
     }
 
-    public void findAll(Iterable<String> ids) {
-        repository.findAll(ids);
+    public Iterable<E> findAll(Iterable<String> ids) {
+        return repository.findAll(ids);
     }
 
     public E findOne(String id) {

@@ -1,5 +1,6 @@
 package com.alexkoveckiy.authorization.api.message;
 
+
 import com.alexkoveckiy.common.protocol.RequestData;
 
 /**

@@ -1,7 +1,7 @@
 package com.alexkoveckiy.profile.impl;
 
-import com.alexkoveckiy.common.router.api.HandlerFactoryByCommand;
-import com.alexkoveckiy.profile.api.router.ProfileRequestHandler;
+import com.alexkoveckiy.common.router.api.factory.RequestHandlerFactory;
+import com.alexkoveckiy.profile.api.handler.ProfileRequestHandler;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class ProfileHandlerFactory extends HandlerFactoryByCommand<ProfileRequestHandler> {
+public class ProfileHandlerFactory extends RequestHandlerFactory<ProfileRequestHandler> {
 }

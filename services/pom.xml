@@ -19,21 +19,32 @@
     <modules>
         <module>authorization</module>
         <module>profile</module>
+        <module>messenger</module>
     </modules>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.alex_koveckiy</groupId>
-                <artifactId>common-protocol</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alex_koveckiy</groupId>
-                <artifactId>common-router</artifactId>
-                <version>1.0-SNAPSHOT</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>com.alex_koveckiy</groupId>
+            <artifactId>common-protocol</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alex_koveckiy</groupId>
+            <artifactId>common-router</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alex_koveckiy</groupId>
+            <artifactId>common-dao</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alex_koveckiy</groupId>
+            <artifactId>common-modelmapper</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+    </dependencies>
+
     
 </project>

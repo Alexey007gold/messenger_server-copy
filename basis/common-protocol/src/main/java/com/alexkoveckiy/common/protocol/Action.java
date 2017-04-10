@@ -2,9 +2,7 @@ package com.alexkoveckiy.common.protocol;
 
 import java.io.Serializable;
 
-public class Action<T extends Serializable> implements Serializable {
-
-	private static final long serialVersionUID = 3373910816445037302L;
+public abstract class Action<T extends Serializable> {
 
     private ActionHeader header;
 

@@ -6,5 +6,5 @@ import com.alexkoveckiy.common.dao.entities.DeviceEntity;
  * Created by alex on 16.03.17.
  */
 public interface DeviceRepository extends BaseRepository<DeviceEntity> {
-    DeviceEntity findByUserIdAndDeviceId(String userId, String deviceId);
+    DeviceEntity findByProfileIdAndDeviceId(String profileId, String deviceId);
 }

@@ -15,11 +15,5 @@
 
     <packaging>jar</packaging>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.alex_koveckiy</groupId>
-            <artifactId>common-router</artifactId>
-        </dependency>
-    </dependencies>
 
 </project>

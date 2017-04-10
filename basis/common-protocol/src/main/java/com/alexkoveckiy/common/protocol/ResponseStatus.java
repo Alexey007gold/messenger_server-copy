@@ -1,9 +1,6 @@
 package com.alexkoveckiy.common.protocol;
 
-import java.io.Serializable;
-
-public class ResponseStatus implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class ResponseStatus {
 
     private Integer code;
     private String message;

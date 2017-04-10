@@ -3,10 +3,13 @@ package com.alexkoveckiy.frontend.rest.configuration;
 import com.alexkoveckiy.authorization.impl.configuration.AuthorizationImplConfig;
 import com.alexkoveckiy.common.dao.configuration.PersistentJPAConfig;
 import com.alexkoveckiy.common.datamapper.configuration.DataMapperConfig;
+import com.alexkoveckiy.common.modelmapper.configuration.CommonModelMapperConfig;
 import com.alexkoveckiy.common.router.configuration.CommonRouterConfig;
-import com.alexkoveckiy.frontend.rest.security.configuration.CustomSecurityConfigurerAdapter;
 import com.alexkoveckiy.common.token.configuration.TokenConfig;
+import com.alexkoveckiy.frontend.rest.security.configuration.CustomSecurityConfigurerAdapter;
+import com.alexkoveckiy.messenger.impl.configuration.MessengerImplConfig;
 import com.alexkoveckiy.profile.impl.configuration.ProfileImplConfig;
+import com.alexkoveckiy.wssession.configuration.WSSessionServiceConfig;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
@@ -24,9 +27,12 @@ import org.springframework.context.annotation.Import;
         CommonRouterConfig.class,
         AuthorizationImplConfig.class,
         ProfileImplConfig.class,
+        MessengerImplConfig.class,
         PersistentJPAConfig.class,
+        TokenConfig.class,
         CustomSecurityConfigurerAdapter.class,
-        TokenConfig.class
+        CommonModelMapperConfig.class,
+        WSSessionServiceConfig.class
 })
 public class RestApplicationConfiguration {
 }

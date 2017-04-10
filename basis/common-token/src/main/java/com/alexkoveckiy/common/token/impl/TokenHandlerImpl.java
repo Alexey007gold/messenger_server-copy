@@ -1,14 +1,18 @@
 package com.alexkoveckiy.common.token.impl;
 
+import com.alexkoveckiy.common.exceptions.InvalidTokenException;
 import com.alexkoveckiy.common.protocol.RoutingData;
 import com.alexkoveckiy.common.token.api.TokenHandler;
-import com.alexkoveckiy.common.token.exception.InvalidTokenException;
 import org.jose4j.jwe.ContentEncryptionAlgorithmIdentifiers;
 import org.jose4j.jwe.JsonWebEncryption;
 import org.jose4j.jwe.KeyManagementAlgorithmIdentifiers;
 import org.jose4j.jwt.JwtClaims;
 import org.jose4j.keys.AesKey;
 import org.springframework.stereotype.Component;
+
+import static com.alexkoveckiy.common.token.impl.TokenHandlerImpl.Claim.DEVICE_ID;
+import static com.alexkoveckiy.common.token.impl.TokenHandlerImpl.Claim.PROFILE_ID;
+
 
 /**
  * Created by alex on 11.03.17.
@@ -23,12 +27,12 @@ public class TokenHandlerImpl implements TokenHandler {
     private final String TEMPORARY_TOKEN = "temporaryToken";
 
     @Override
-    public String createDeviceToken(String userId, String deviceId, String locale) throws InvalidTokenException {
+    public String createDeviceToken(String profileId, String deviceId) throws InvalidTokenException {
         try {
             JwtClaims claims = new JwtClaims();
             claims.setIssuedAtToNow();
-            claims.setClaim("user_id", userId);
-            claims.setClaim("device_id", deviceId);
+            claims.setClaim(PROFILE_ID, profileId);
+            claims.setClaim(DEVICE_ID, deviceId);
             claims.setClaim("type", DEVICE_TOKEN);
 
             return encrypt(claims);
@@ -38,13 +42,13 @@ public class TokenHandlerImpl implements TokenHandler {
     }
 
     @Override
-    public String createTemporaryToken(String userId, String deviceId) throws InvalidTokenException {
+    public String createTemporaryToken(String profileId, String deviceId) throws InvalidTokenException {
         JwtClaims claims = new JwtClaims();
         claims.setIssuedAtToNow();
-        claims.setClaim("user_id", userId);
-        claims.setClaim("device_id", deviceId);
+        claims.setClaim(PROFILE_ID, profileId);
+        claims.setClaim(DEVICE_ID, deviceId);
         claims.setClaim("type", TEMPORARY_TOKEN);
-        claims.setExpirationTimeMinutesInTheFuture(999999999);
+        claims.setExpirationTimeMinutesInTheFuture(5);
 
         return encrypt(claims);
     }
@@ -69,12 +73,24 @@ public class TokenHandlerImpl implements TokenHandler {
     }
 
     @Override
-    public String getUserIdFromDeviceToken(String token) throws InvalidTokenException {
+    public String getProfileIdFromDeviceToken(String token) throws InvalidTokenException {
         try {
             JwtClaims claims = getClaimsFromToken(token);
             if (!claims.getStringClaimValue("type").equals(DEVICE_TOKEN))
                 throw new InvalidTokenException("This is not Device Token!");
-            return claims.getStringClaimValue("user_id");
+            return claims.getStringClaimValue(PROFILE_ID);
+        } catch (Exception e) {
+            throw new InvalidTokenException(e.getMessage());
+        }
+    }
+
+    @Override
+    public JwtClaims getClaimsFromDeviceToken(String token) throws InvalidTokenException {
+        try {
+            JwtClaims claims = getClaimsFromToken(token);
+            if (!claims.getStringClaimValue("type").equals(DEVICE_TOKEN))
+                throw new InvalidTokenException("This is not Device Token!");
+            return claims;
         } catch (Exception e) {
             throw new InvalidTokenException(e.getMessage());
         }
@@ -88,8 +104,8 @@ public class TokenHandlerImpl implements TokenHandler {
                 throw new InvalidTokenException("This is not Temporary Token!");
             if (claims.getExpirationTime().getValueInMillis() < System.currentTimeMillis())
                 throw new InvalidTokenException("Token has expired");
-            return new RoutingData(claims.getStringClaimValue("user_id"),
-                    claims.getStringClaimValue("device_id"));
+            return new RoutingData(claims.getStringClaimValue(PROFILE_ID),
+                    claims.getStringClaimValue(DEVICE_ID));
         } catch (Exception e) {
             throw new InvalidTokenException(e.getMessage());
         }
@@ -103,5 +119,10 @@ public class TokenHandlerImpl implements TokenHandler {
         } catch (Exception e) {
             throw new InvalidTokenException(e.getMessage());
         }
+    }
+
+    public static class Claim {
+        public static final String DEVICE_ID = "device_id";
+        public static final String PROFILE_ID = "profile_id";
     }
 }

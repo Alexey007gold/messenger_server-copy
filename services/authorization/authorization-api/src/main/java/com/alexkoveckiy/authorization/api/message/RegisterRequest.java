@@ -31,7 +31,7 @@ public class RegisterRequest implements RequestData {
 		this.localeCode = localeCode;
 	}
 
-	public String getDeviceID() {
+	public String getDeviceId() {
 		return deviceID;
 	}
 

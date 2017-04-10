@@ -14,5 +14,26 @@
     <version>1.0-SNAPSHOT</version>
 
     <packaging>war</packaging>
+
+    <repositories>
+        <repository>
+            <id>alfresco</id>
+            <name>alfresco</name>
+            <url>https://artifacts.alfresco.com/nexus/content/repositories/public/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <version>5.0.0.M5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alex_koveckiy</groupId>
+            <artifactId>ws-session-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
     
 </project>

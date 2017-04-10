@@ -1,7 +1,7 @@
 package com.alexkoveckiy.authorization.impl;
 
-import com.alexkoveckiy.authorization.api.router.AuthorizationRequestHandler;
-import com.alexkoveckiy.common.router.api.HandlerFactoryByCommand;
+import com.alexkoveckiy.authorization.api.handler.AuthorizationRequestHandler;
+import com.alexkoveckiy.common.router.api.factory.RequestHandlerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class AuthorizationHandlerFactory extends HandlerFactoryByCommand<AuthorizationRequestHandler> {
+public class AuthorizationHandlerFactory extends RequestHandlerFactory<AuthorizationRequestHandler> {
 }

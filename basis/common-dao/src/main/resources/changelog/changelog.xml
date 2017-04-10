@@ -7,26 +7,171 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet author="Alex" id="changelog-1.0">
-        <createTable tableName="users">
+        <createTable tableName="profile">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
-            <column name="phoneNumber" type="TEXT">
-                <constraints nullable="false" primaryKey="false" unique="false"/>
+            <column name="phone_number" type="VARCHAR(30)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="create_date_time" type="BIGINT(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date_time" type="BIGINT(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="avatar_uri" type="TEXT"/>
+            <column name="name" type="TEXT"/>
+            <column name="status" type="TEXT"/>
+        </createTable>
+        <createTable tableName="device">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="profile_id" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="device_id" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="confirmation_time" type="BIGINT">
+                <constraints nullable="false"/>
             </column>
         </createTable>
-        <createTable tableName="devices">
+        <createTable tableName="number">
             <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false" primaryKey="true" unique="true"/>
             </column>
-            <column name="userId" type="TEXT">
-                <constraints nullable="false" primaryKey="false" unique="false"/>
+            <column name="contact_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
             </column>
-            <column name="deviceId" type="TEXT">
-                <constraints nullable="false" primaryKey="false" unique="false"/>
+            <column name="number" type="VARCHAR(36)">
+                <constraints nullable="false"/>
             </column>
-            <column name="confirmationTime" type="BIGINT">
-                <constraints nullable="false" primaryKey="false" unique="false"/>
+        </createTable>
+        <createTable tableName="contact">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="profile_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="profile_settings">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="profile_id" type="VARCHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="share_online_status" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="share_seen_status" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="profile_status">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="profile_id" type="VARCHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="last_time_online" type="BIGINT(19)"/>
+        </createTable>
+        <createTable tableName="contact_number">
+            <column name="contact_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="number_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="conversation">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="type" type="INT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_message_index" type="BIGINT(19)"/>
+            <column name="creation_date" type="BIGINT(19)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="conversation_member">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="profile_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="conversation_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="INT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="join_date" type="BIGINT(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="remove_date" type="BIGINT(19)"/>
+        </createTable>
+        <createTable tableName="conversation_settings">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="conversation_id" type="VARCHAR(36)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="admin_id" type="VARCHAR(36)"/>
+            <column name="name" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="logo_image_uri" type="TEXT"/>
+        </createTable>
+        <createTable tableName="message">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="sender_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="conversation_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payload" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="INT(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="BIGINT(19)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="server_received_date" type="BIGINT(19)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="message_status">
+            <column name="id" type="VARCHAR(36)">
+                <constraints nullable="false" primaryKey="true" unique="true"/>
+            </column>
+            <column name="message_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="conversation_id" type="VARCHAR(36)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="INT(1)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>

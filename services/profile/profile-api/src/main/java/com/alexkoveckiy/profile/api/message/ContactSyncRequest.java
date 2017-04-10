@@ -1,9 +1,9 @@
 package com.alexkoveckiy.profile.api.message;
 
+import com.alexkoveckiy.profile.api.dto.ContactDTO;
 import com.alexkoveckiy.common.protocol.RequestData;
-import com.alexkoveckiy.profile.api.DTO.ContactDTO;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by alex on 26.02.17.
@@ -13,33 +13,23 @@ public class ContactSyncRequest implements RequestData {
 
 	private static final long serialVersionUID = 4895237867750981751L;
 
-    private String token;
+	private List<ContactDTO> addedContacts;
 
-	private ArrayList<ContactDTO> addedContacts;
+	private List<ContactDTO> removedContacts;
 
-	private ArrayList<ContactDTO> removedContacts;
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public ArrayList<ContactDTO> getAddedContacts() {
+    public List<ContactDTO> getAddedContacts() {
         return addedContacts;
     }
 
-    public void setAddedContacts(ArrayList<ContactDTO> addedContacts) {
+    public void setAddedContacts(List<ContactDTO> addedContacts) {
         this.addedContacts = addedContacts;
     }
 
-    public ArrayList<ContactDTO> getRemovedContacts() {
+    public List<ContactDTO> getRemovedContacts() {
         return removedContacts;
     }
 
-    public void setRemovedContacts(ArrayList<ContactDTO> removedContacts) {
+    public void setRemovedContacts(List<ContactDTO> removedContacts) {
         this.removedContacts = removedContacts;
     }
 }

@@ -1,32 +1,25 @@
 package com.alexkoveckiy.common.protocol;
 
-import java.io.Serializable;
-
 /**
  * Created by alex on 08.03.17.
  */
-public class RoutingData implements Serializable {
-    private static final long serialVersionUID = -5850459221736408718L;
+public class RoutingData {
 
-    private String userId;
+    private String profileId;
 
     private String deviceId;
 
-    public RoutingData(String userId, String deviceId) {
-        this.userId = userId;
+    public RoutingData(String profileId, String deviceId) {
+        this.profileId = profileId;
         this.deviceId = deviceId;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getProfileId() {
+        return profileId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public void setProfileId(String profileId) {
+        this.profileId = profileId;
     }
 
     public String getDeviceId() {

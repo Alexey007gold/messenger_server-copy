@@ -1,9 +1,8 @@
 package com.alexkoveckiy.profile.impl.router;
 
-import com.alexkoveckiy.common.router.api.AbstractRouterHandler;
-import com.alexkoveckiy.common.router.api.ByTypeRouterHandler;
-import com.alexkoveckiy.common.router.api.HandlerFactory;
-import com.alexkoveckiy.profile.api.router.ProfileRequestHandler;
+import com.alexkoveckiy.common.router.api.handler.ByCommandRouterHandler;
+import com.alexkoveckiy.common.router.api.factory.HandlerFactory;
+import com.alexkoveckiy.profile.api.handler.ProfileRequestHandler;
 import com.alexkoveckiy.profile.impl.ProfileHandlerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class ProfileRouter extends AbstractRouterHandler<ProfileRequestHandler> implements ByTypeRouterHandler {
+public class ProfileRouter extends ByCommandRouterHandler<ProfileRequestHandler> {
 
     @Autowired
     private ProfileHandlerFactory handlerFactory;

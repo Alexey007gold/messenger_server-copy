@@ -1,11 +1,18 @@
 package com.alexkoveckiy.common.protocol;
 
-public class Response<T extends ActionData> extends RoutedAction<T> {
-	private static final long serialVersionUID = 8979170551734666755L;
+public class Response<T extends ResponseData> extends Action<T> {
 
 	private ResponseStatus status;
 
     public Response() {
+    }
+
+    public Response(T data) {
+        super(null, data);
+    }
+
+    public Response(ResponseStatus responseStatus) {
+        this.status = responseStatus;
     }
 
     public Response(ActionHeader header, T data, ResponseStatus status) {

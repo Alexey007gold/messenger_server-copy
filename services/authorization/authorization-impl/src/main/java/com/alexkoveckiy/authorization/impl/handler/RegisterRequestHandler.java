@@ -2,26 +2,25 @@ package com.alexkoveckiy.authorization.impl.handler;
 
 import com.alexkoveckiy.authorization.api.message.RegisterRequest;
 import com.alexkoveckiy.authorization.api.message.RegisterResponse;
-import com.alexkoveckiy.authorization.api.router.AuthorizationRequestHandler;
+import com.alexkoveckiy.authorization.api.handler.AuthorizationRequestHandler;
 import com.alexkoveckiy.authorization.impl.model.RegSession;
 import com.alexkoveckiy.authorization.impl.model.RegSessions;
-import com.alexkoveckiy.common.dao.repositories.UserRepository;
-import com.alexkoveckiy.common.protocol.ActionHeader;
 import com.alexkoveckiy.common.protocol.Request;
 import com.alexkoveckiy.common.protocol.Response;
-import com.alexkoveckiy.common.protocol.ResponseStatus;
-import com.alexkoveckiy.common.router.api.AbstractRequestHandler;
+import com.alexkoveckiy.common.protocol.ResponseFactory;
+import com.alexkoveckiy.common.router.api.handler.AbstractRequestHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.UUID;
+import static com.alexkoveckiy.common.protocol.ResponseFactory.Status.NOT_ACCEPTABLE;
+import static com.alexkoveckiy.common.protocol.ResponseFactory.Status.TOO_MANY_REQUESTS;
 
 /**
  * Created by alex on 23.02.17.
  */
 
 @Component
-public class RegisterRequestHandler extends AbstractRequestHandler<RegisterRequest, RegisterResponse> implements AuthorizationRequestHandler<RegisterResponse> {
+public class RegisterRequestHandler extends AuthorizationRequestHandler<RegisterRequest, RegisterResponse> {
 
     @Autowired
     private RegSessions regSessions;
@@ -33,37 +32,19 @@ public class RegisterRequestHandler extends AbstractRequestHandler<RegisterReque
 
     @Override
     public Response<RegisterResponse> process(Request<RegisterRequest> msg) {
-        ActionHeader header;
-        RegisterResponse data;
-        ResponseStatus status;
+        String phoneNumber = msg.getData().getPhoneNumber();
+        if (!numberIsOk(phoneNumber))
+            return ResponseFactory.createResponse(msg, NOT_ACCEPTABLE);
+        if (!regSessions.exists(phoneNumber, msg.getData().getDeviceId())) {
+            RegSession regSession = regSessions.createRegSession(phoneNumber,
+                    msg.getData().getDeviceId(), msg.getData().getLocaleCode());
 
-        try {
-            String phoneNumber = msg.getData().getPhoneNumber();
-            if (numberIsOk(phoneNumber)) {
-                RegSession regSession = regSessions.createRegSession(phoneNumber,
-                        msg.getData().getDeviceID(),
-                        msg.getData().getLocaleCode());
+            sendSms(phoneNumber, regSession.getAuthCode());
 
-                header = new ActionHeader(UUID.randomUUID().toString(),
-                        msg.getHeader().getUuid(),
-                        "authorization",
-                        "register",
-                        "HTTP/1.1");
-
-                data = new RegisterResponse(regSession.getUUID(),
-                        regSession.getTimeOut(),
-                        regSession.getAuthCode());
-                status = new ResponseStatus(200, "OK");
-                sendSms(phoneNumber, regSession.getAuthCode());
-            } else
-                throw new IllegalArgumentException();
-        } catch (Exception e) {
-            header = null;
-            data = null;
-            status = new ResponseStatus(400, "Bad request");
+            return ResponseFactory.createResponse(msg, new RegisterResponse(regSession.getUUID(),
+                    regSession.getTimeOut(), regSession.getAuthCode()));
         }
-
-        return new Response<>(header, data, status);
+        return ResponseFactory.createResponse(msg, TOO_MANY_REQUESTS);
     }
 
     private void sendSms(String phoneNumber, int authCode) {
