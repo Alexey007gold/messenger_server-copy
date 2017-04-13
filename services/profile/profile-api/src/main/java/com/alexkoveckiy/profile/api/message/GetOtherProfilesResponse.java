@@ -1,7 +1,7 @@
 package com.alexkoveckiy.profile.api.message;
 
-import com.alexkoveckiy.profile.api.dto.UserProfileDTO;
 import com.alexkoveckiy.common.protocol.ResponseData;
+import com.alexkoveckiy.profile.api.dto.UserProfileDTO;
 
 import java.util.List;
 

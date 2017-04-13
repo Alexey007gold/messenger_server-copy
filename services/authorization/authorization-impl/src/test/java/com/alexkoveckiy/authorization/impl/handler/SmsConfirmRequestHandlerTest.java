@@ -1,9 +1,8 @@
 package com.alexkoveckiy.authorization.impl.handler;
 
-import com.alexkoveckiy.authorization.api.message.RegisterRequest;
-import com.alexkoveckiy.authorization.api.message.RegisterResponse;
 import com.alexkoveckiy.authorization.api.message.SmsConfirmRequest;
 import com.alexkoveckiy.authorization.api.message.SmsConfirmResponse;
+import com.alexkoveckiy.authorization.impl.model.RegSession;
 import com.alexkoveckiy.authorization.impl.model.RegSessions;
 import com.alexkoveckiy.common.dao.entities.DeviceEntity;
 import com.alexkoveckiy.common.dao.entities.ProfileEntity;
@@ -25,6 +24,8 @@ import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.lang.reflect.Field;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -38,13 +39,10 @@ import static org.mockito.Mockito.when;
 public class SmsConfirmRequestHandlerTest {
 
     @InjectMocks
-    private RegisterRequestHandler registerRequestHandler = Mockito.mock(RegisterRequestHandler.class, Mockito.CALLS_REAL_METHODS);
-
-    @InjectMocks
     private SmsConfirmRequestHandler smsConfirmRequestHandler = Mockito.mock(SmsConfirmRequestHandler.class, Mockito.CALLS_REAL_METHODS);
 
     @Spy
-    private RegSessions regSessions = new RegSessions();
+    private RegSessions regSessions = Mockito.mock(RegSessions.class);
 
     @Spy
     private TokenHandler tokenHandler = new TokenHandlerImpl();
@@ -70,31 +68,27 @@ public class SmsConfirmRequestHandlerTest {
         when(profileSettingsService.save(any(ProfileSettingsEntity.class))).thenReturn(null);
         when(profileStatusService.save(any(ProfileStatusEntity.class))).thenReturn(null);
 
-        Request<RegisterRequest> request1 = new Request<>();
-        RegisterRequest registerRequest = new RegisterRequest();
-        registerRequest.setPhoneNumber("+380631234567");
-        registerRequest.setLocaleCode("uk_UA");
-        registerRequest.setDeviceID("dev_id");
-        request1.setHeader(new ActionHeader("uuid1", null, "register", "authorization", "HTTP/1.1"));
-        request1.setData(registerRequest);
-
-        Response<RegisterResponse> response1 = registerRequestHandler.process(request1);
+        RegSession regSession = new RegSession("num", "dev", "loc");
+        Field field = RegSession.class.getDeclaredField("authCode");
+        field.setAccessible(true);
+        field.setInt(regSession, 5555);
+        when(regSessions.takeRegSession(any())).thenReturn(regSession);
 
 
         Request<SmsConfirmRequest> request2 = new Request<>();
         SmsConfirmRequest smsConfirmRequest = new SmsConfirmRequest();
-        smsConfirmRequest.setAuthCode(response1.getData().getAuthCode());
-        smsConfirmRequest.setRegistrationRequestUuid(response1.getData().getRegistrationRequestUuid());
-        request2.setHeader(new ActionHeader("uuid2", null, "sms_confirm", "authorization", "HTTP/1.1"));
+        smsConfirmRequest.setAuthCode(5555);
+        smsConfirmRequest.setRegistrationRequestUuid("reqUu");
+        request2.setHeader(new ActionHeader("uuid", null, "sms_confirm", "authorization", ""));
         request2.setData(smsConfirmRequest);
 
         Response<SmsConfirmResponse> response2 = smsConfirmRequestHandler.process(request2);
         assertThat(response2.getData().getDeviceToken(), is(notNullValue(String.class)));
 
+        assertThat(response2.getStatus().getCode(), is(200));
         assertThat(response2.getHeader().getUuid(), is(notNullValue(String.class)));
-        assertThat(response2.getHeader().getOriginUuid(), is("uuid2"));
+        assertThat(response2.getHeader().getOriginUuid(), is("uuid"));
         assertThat(response2.getHeader().getType(), is("authorization"));
-        assertThat(response2.getHeader().getVersion(), is("HTTP/1.1"));
         assertThat(response2.getHeader().getCommand(), is("sms_confirm"));
     }
 }

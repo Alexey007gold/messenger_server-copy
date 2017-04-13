@@ -1,7 +1,7 @@
 package com.alexkoveckiy.messenger.api.message;
 
-import com.alexkoveckiy.messenger.api.dto.ConversationDTO;
 import com.alexkoveckiy.common.protocol.ResponseData;
+import com.alexkoveckiy.messenger.api.dto.ConversationDTO;
 
 import java.util.List;
 

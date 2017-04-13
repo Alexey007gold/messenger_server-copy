@@ -1,8 +1,8 @@
 package com.alexkoveckiy.common.router.impl;
 
 import com.alexkoveckiy.common.router.api.factory.ByCommandHandlerFactory;
-import com.alexkoveckiy.common.router.api.handler.ByCommandRouterHandler;
 import com.alexkoveckiy.common.router.api.factory.HandlerFactory;
+import com.alexkoveckiy.common.router.api.handler.ByCommandRouterHandler;
 import com.alexkoveckiy.common.router.api.handler.ByTypeRouterHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

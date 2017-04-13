@@ -2,13 +2,13 @@ package com.alexkoveckiy.messenger.impl.handler;
 
 import com.alexkoveckiy.common.dao.entities.ConversationEntity;
 import com.alexkoveckiy.common.dao.service.ConversationService;
-import com.alexkoveckiy.messenger.api.dto.ConversationDTO;
 import com.alexkoveckiy.common.protocol.Request;
 import com.alexkoveckiy.common.protocol.Response;
 import com.alexkoveckiy.common.protocol.ResponseFactory;
+import com.alexkoveckiy.messenger.api.dto.ConversationDTO;
+import com.alexkoveckiy.messenger.api.handler.MessengerRequestHandler;
 import com.alexkoveckiy.messenger.api.message.GetConversationsByIdsRequest;
 import com.alexkoveckiy.messenger.api.message.GetConversationsByIdsResponse;
-import com.alexkoveckiy.messenger.api.handler.MessengerRequestHandler;
 import com.alexkoveckiy.messenger.impl.service.ConversationDTOService;
 import com.alexkoveckiy.messenger.impl.service.ConversationMembershipCheckService;
 import org.springframework.beans.factory.annotation.Autowired;

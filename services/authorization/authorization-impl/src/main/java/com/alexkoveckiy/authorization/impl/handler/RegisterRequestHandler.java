@@ -1,14 +1,13 @@
 package com.alexkoveckiy.authorization.impl.handler;
 
+import com.alexkoveckiy.authorization.api.handler.AuthorizationRequestHandler;
 import com.alexkoveckiy.authorization.api.message.RegisterRequest;
 import com.alexkoveckiy.authorization.api.message.RegisterResponse;
-import com.alexkoveckiy.authorization.api.handler.AuthorizationRequestHandler;
 import com.alexkoveckiy.authorization.impl.model.RegSession;
 import com.alexkoveckiy.authorization.impl.model.RegSessions;
 import com.alexkoveckiy.common.protocol.Request;
 import com.alexkoveckiy.common.protocol.Response;
 import com.alexkoveckiy.common.protocol.ResponseFactory;
-import com.alexkoveckiy.common.router.api.handler.AbstractRequestHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

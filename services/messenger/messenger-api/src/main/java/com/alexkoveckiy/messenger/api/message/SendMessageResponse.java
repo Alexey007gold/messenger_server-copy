@@ -1,7 +1,7 @@
 package com.alexkoveckiy.messenger.api.message;
 
-import com.alexkoveckiy.messenger.api.dto.MessageDTO;
 import com.alexkoveckiy.common.protocol.ResponseData;
+import com.alexkoveckiy.messenger.api.dto.MessageDTO;
 
 /**
  * Created by alex on 31.03.17.

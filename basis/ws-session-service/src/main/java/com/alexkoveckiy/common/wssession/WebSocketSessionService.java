@@ -1,4 +1,4 @@
-package com.alexkoveckiy.wssession;
+package com.alexkoveckiy.common.wssession;
 
 import com.alexkoveckiy.common.protocol.RoutingData;
 import org.springframework.stereotype.Component;

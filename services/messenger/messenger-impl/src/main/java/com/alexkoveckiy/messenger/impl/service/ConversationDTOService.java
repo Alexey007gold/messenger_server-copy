@@ -6,8 +6,8 @@ import com.alexkoveckiy.common.dao.entities.ProfileEntity;
 import com.alexkoveckiy.common.dao.service.ConversationMemberService;
 import com.alexkoveckiy.common.dao.service.ConversationSettingsService;
 import com.alexkoveckiy.common.dao.service.ProfileService;
-import com.alexkoveckiy.messenger.api.dto.ConversationDTO;
 import com.alexkoveckiy.common.modelmapper.ModelMapperService;
+import com.alexkoveckiy.messenger.api.dto.ConversationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

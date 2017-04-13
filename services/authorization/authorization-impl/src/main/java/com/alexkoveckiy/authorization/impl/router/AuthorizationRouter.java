@@ -2,8 +2,8 @@ package com.alexkoveckiy.authorization.impl.router;
 
 import com.alexkoveckiy.authorization.api.handler.AuthorizationRequestHandler;
 import com.alexkoveckiy.authorization.impl.AuthorizationHandlerFactory;
-import com.alexkoveckiy.common.router.api.handler.ByCommandRouterHandler;
 import com.alexkoveckiy.common.router.api.factory.HandlerFactory;
+import com.alexkoveckiy.common.router.api.handler.ByCommandRouterHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

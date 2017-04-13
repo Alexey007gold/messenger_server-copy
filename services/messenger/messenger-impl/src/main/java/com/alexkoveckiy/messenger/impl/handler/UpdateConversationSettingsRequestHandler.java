@@ -7,10 +7,9 @@ import com.alexkoveckiy.common.modelmapper.ModelMapperService;
 import com.alexkoveckiy.common.protocol.Request;
 import com.alexkoveckiy.common.protocol.Response;
 import com.alexkoveckiy.common.protocol.ResponseFactory;
-import com.alexkoveckiy.common.router.api.handler.AbstractRequestHandler;
+import com.alexkoveckiy.messenger.api.handler.MessengerRequestHandler;
 import com.alexkoveckiy.messenger.api.message.UpdateConversationSettingsRequest;
 import com.alexkoveckiy.messenger.api.message.UpdateConversationSettingsResponse;
-import com.alexkoveckiy.messenger.api.handler.MessengerRequestHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

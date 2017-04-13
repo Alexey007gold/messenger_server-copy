@@ -1,12 +1,11 @@
 package com.alexkoveckiy.frontend.ws;
 
-import com.alexkoveckiy.common.dao.entities.ProfileStatusEntity;
-import com.alexkoveckiy.common.dao.service.ProfileStatusService;
 import com.alexkoveckiy.common.datamapper.DataMapper;
+import com.alexkoveckiy.common.isonline.IsOnlineService;
 import com.alexkoveckiy.common.protocol.Request;
 import com.alexkoveckiy.common.protocol.RoutingData;
 import com.alexkoveckiy.common.router.api.handler.Handler;
-import com.alexkoveckiy.wssession.WebSocketSessionService;
+import com.alexkoveckiy.common.wssession.WebSocketSessionService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,7 +25,7 @@ public class WebSocketMessageHandler extends TextWebSocketHandler {
     private WebSocketSessionService webSocketSessionService;
 
     @Autowired
-    private ProfileStatusService profileStatusService;
+    private IsOnlineService isOnlineService;
 
     @Autowired
     private DataMapper dataMapper;
@@ -43,15 +42,13 @@ public class WebSocketMessageHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        isOnlineService.checkOnline(webSocketSessionService.getRoutingData(session).getProfileId());
         webSocketSessionService.put(session, (RoutingData) session.getAttributes().get("routing_data"));
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        String profileId = webSocketSessionService.getRoutingData(session).getProfileId();
-        ProfileStatusEntity profileStatusEntity = profileStatusService.findByProfileId(profileId);
-        profileStatusEntity.setLastTimeOnline(System.currentTimeMillis());
-        profileStatusService.save(profileStatusEntity);
+        isOnlineService.checkOnline(webSocketSessionService.getRoutingData(session).getProfileId());
         webSocketSessionService.remove(session);
     }
 }

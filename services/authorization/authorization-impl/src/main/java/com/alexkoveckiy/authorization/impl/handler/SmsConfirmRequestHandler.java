@@ -1,8 +1,8 @@
 package com.alexkoveckiy.authorization.impl.handler;
 
+import com.alexkoveckiy.authorization.api.handler.AuthorizationRequestHandler;
 import com.alexkoveckiy.authorization.api.message.SmsConfirmRequest;
 import com.alexkoveckiy.authorization.api.message.SmsConfirmResponse;
-import com.alexkoveckiy.authorization.api.handler.AuthorizationRequestHandler;
 import com.alexkoveckiy.authorization.impl.model.RegSession;
 import com.alexkoveckiy.authorization.impl.model.RegSessions;
 import com.alexkoveckiy.common.dao.entities.DeviceEntity;
@@ -16,7 +16,6 @@ import com.alexkoveckiy.common.dao.service.ProfileStatusService;
 import com.alexkoveckiy.common.protocol.Request;
 import com.alexkoveckiy.common.protocol.Response;
 import com.alexkoveckiy.common.protocol.ResponseFactory;
-import com.alexkoveckiy.common.router.api.handler.AbstractRequestHandler;
 import com.alexkoveckiy.common.token.api.TokenHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

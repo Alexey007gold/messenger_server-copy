@@ -3,13 +3,14 @@ package com.alexkoveckiy.frontend.rest.configuration;
 import com.alexkoveckiy.authorization.impl.configuration.AuthorizationImplConfig;
 import com.alexkoveckiy.common.dao.configuration.PersistentJPAConfig;
 import com.alexkoveckiy.common.datamapper.configuration.DataMapperConfig;
+import com.alexkoveckiy.common.isonline.configuration.IsOnlineConfig;
 import com.alexkoveckiy.common.modelmapper.configuration.CommonModelMapperConfig;
 import com.alexkoveckiy.common.router.configuration.CommonRouterConfig;
 import com.alexkoveckiy.common.token.configuration.TokenConfig;
+import com.alexkoveckiy.common.wssession.configuration.WSSessionServiceConfig;
 import com.alexkoveckiy.frontend.rest.security.configuration.CustomSecurityConfigurerAdapter;
 import com.alexkoveckiy.messenger.impl.configuration.MessengerImplConfig;
 import com.alexkoveckiy.profile.impl.configuration.ProfileImplConfig;
-import com.alexkoveckiy.wssession.configuration.WSSessionServiceConfig;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
@@ -32,7 +33,8 @@ import org.springframework.context.annotation.Import;
         TokenConfig.class,
         CustomSecurityConfigurerAdapter.class,
         CommonModelMapperConfig.class,
-        WSSessionServiceConfig.class
+        WSSessionServiceConfig.class,
+        IsOnlineConfig.class
 })
 public class RestApplicationConfiguration {
 }

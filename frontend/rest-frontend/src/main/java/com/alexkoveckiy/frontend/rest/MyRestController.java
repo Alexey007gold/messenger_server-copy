@@ -1,10 +1,9 @@
 package com.alexkoveckiy.frontend.rest;
 
-import com.alexkoveckiy.common.dao.entities.ProfileStatusEntity;
-import com.alexkoveckiy.common.dao.service.ProfileStatusService;
+import com.alexkoveckiy.common.isonline.IsOnlineService;
 import com.alexkoveckiy.common.protocol.Request;
 import com.alexkoveckiy.common.protocol.Response;
-import com.alexkoveckiy.common.protocol.ResponseStatus;
+import com.alexkoveckiy.common.protocol.ResponseFactory;
 import com.alexkoveckiy.common.protocol.RoutingData;
 import com.alexkoveckiy.common.router.api.handler.Handler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+
+import static com.alexkoveckiy.common.protocol.ResponseFactory.Status.BAD_REQUEST;
 
 
 /**
@@ -35,14 +36,14 @@ public class MyRestController {
     private Handler authorizationRouter;
 
     @Autowired
-    private ProfileStatusService profileStatusService;
+    private IsOnlineService isOnlineService;
 
     @RequestMapping(path = "public")
     public Response<?> processPublicRequest(@RequestBody final Request<?> request) {
         try {
             return authorizationRouter.handle(request);
         } catch (Exception e) {
-            return new Response<>(null, null, new ResponseStatus(400, "Bad request"));
+            return ResponseFactory.createResponse(request, BAD_REQUEST);
         }
     }
 
@@ -50,14 +51,12 @@ public class MyRestController {
     public Response<?> processPrivateRequest(@RequestBody final Request<?> request, HttpSession session) {
         try {
             RoutingData routingData = (RoutingData) session.getAttribute("routing_data");
-            ProfileStatusEntity profileStatusEntity = profileStatusService.findByProfileId(routingData.getProfileId());
-            profileStatusEntity.setLastTimeOnline(System.currentTimeMillis());
-            profileStatusService.save(profileStatusEntity);
-
             request.setRoutingData(routingData);
+            isOnlineService.checkOnline(routingData.getProfileId());
+
             return firstRouter.handle(request);
         } catch (Exception e) {
-            return new Response<>(null, null, new ResponseStatus(400, "Bad request"));
+            return ResponseFactory.createResponse(request, BAD_REQUEST);
         }
     }
 

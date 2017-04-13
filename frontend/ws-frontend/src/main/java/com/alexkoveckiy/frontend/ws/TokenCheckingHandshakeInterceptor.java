@@ -1,6 +1,5 @@
 package com.alexkoveckiy.frontend.ws;
 
-import com.alexkoveckiy.common.protocol.RoutingData;
 import com.alexkoveckiy.common.token.api.TokenHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.server.ServerHttpRequest;

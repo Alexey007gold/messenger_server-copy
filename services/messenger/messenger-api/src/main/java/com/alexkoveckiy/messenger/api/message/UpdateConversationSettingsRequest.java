@@ -1,7 +1,7 @@
 package com.alexkoveckiy.messenger.api.message;
 
-import com.alexkoveckiy.messenger.api.dto.ConversationSettingsDTO;
 import com.alexkoveckiy.common.protocol.RequestData;
+import com.alexkoveckiy.messenger.api.dto.ConversationSettingsDTO;
 
 /**
  * Created by alex on 31.03.17.

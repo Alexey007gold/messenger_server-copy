@@ -1,7 +1,7 @@
 package com.alexkoveckiy.profile.api.message;
 
-import com.alexkoveckiy.profile.api.dto.MyProfileSetDTO;
 import com.alexkoveckiy.common.protocol.RequestData;
+import com.alexkoveckiy.profile.api.dto.MyProfileSetDTO;
 
 /**
  * Created by alex on 22.03.17.

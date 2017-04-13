@@ -36,7 +36,7 @@ public class RegisterRequestHandlerTest {
         registerRequest.setPhoneNumber("+380631234567");
         registerRequest.setLocaleCode("uk_UA");
         registerRequest.setDeviceID("dev_id");
-        request.setHeader(new ActionHeader("uuid1", null, "register", "authorization", "HTTP/1.1"));
+        request.setHeader(new ActionHeader("uuid1", null, "register", "authorization", ""));
         request.setData(registerRequest);
 
         Response<RegisterResponse> response = registerRequestHandler.process(request);
@@ -44,10 +44,10 @@ public class RegisterRequestHandlerTest {
         assertThat(response.getData().getRegistrationRequestUuid(), is(notNullValue(String.class)));
         assertThat(response.getData().getAuthCode(), is(notNullValue(Integer.class)));
 
+        assertThat(response.getStatus().getCode(), is(200));
         assertThat(response.getHeader().getUuid(), is(notNullValue(String.class)));
         assertThat(response.getHeader().getOriginUuid(), is("uuid1"));
         assertThat(response.getHeader().getType(), is("authorization"));
-        assertThat(response.getHeader().getVersion(), is("HTTP/1.1"));
         assertThat(response.getHeader().getCommand(), is("register"));
     }
 }

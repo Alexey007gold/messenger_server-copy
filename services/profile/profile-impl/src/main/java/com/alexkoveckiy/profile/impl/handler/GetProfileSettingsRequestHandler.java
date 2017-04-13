@@ -2,14 +2,14 @@ package com.alexkoveckiy.profile.impl.handler;
 
 import com.alexkoveckiy.common.dao.entities.ProfileSettingsEntity;
 import com.alexkoveckiy.common.dao.service.ProfileSettingsService;
-import com.alexkoveckiy.profile.api.dto.ProfileSettingsDTO;
 import com.alexkoveckiy.common.modelmapper.ModelMapperService;
 import com.alexkoveckiy.common.protocol.Request;
 import com.alexkoveckiy.common.protocol.Response;
 import com.alexkoveckiy.common.protocol.ResponseFactory;
+import com.alexkoveckiy.profile.api.dto.ProfileSettingsDTO;
+import com.alexkoveckiy.profile.api.handler.ProfileRequestHandler;
 import com.alexkoveckiy.profile.api.message.GetProfileSettingsRequest;
 import com.alexkoveckiy.profile.api.message.GetProfileSettingsResponse;
-import com.alexkoveckiy.profile.api.handler.ProfileRequestHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

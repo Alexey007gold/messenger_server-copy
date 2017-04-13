@@ -1,4 +1,4 @@
-package com.alexkoveckiy.wssession.configuration;
+package com.alexkoveckiy.common.wssession.configuration;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +8,6 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
-@ComponentScan(basePackages = "com.alexkoveckiy.wssession")
+@ComponentScan(basePackages = "com.alexkoveckiy.common.wssession")
 public class WSSessionServiceConfig {
 }

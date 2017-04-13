@@ -25,6 +25,7 @@
         <module>common-token</module>
         <module>common-modelmapper</module>
         <module>ws-session-service</module>
+        <module>is-online-service</module>
     </modules>
 
 </project>

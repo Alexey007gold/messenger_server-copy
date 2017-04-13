@@ -1,8 +1,7 @@
 package com.alexkoveckiy.messenger.impl.router;
 
-import com.alexkoveckiy.common.router.api.handler.AbstractRouterHandler;
-import com.alexkoveckiy.common.router.api.handler.ByCommandRouterHandler;
 import com.alexkoveckiy.common.router.api.factory.HandlerFactory;
+import com.alexkoveckiy.common.router.api.handler.AbstractRouterHandler;
 import com.alexkoveckiy.messenger.api.handler.MessengerRequestHandler;
 import com.alexkoveckiy.messenger.impl.MessengerHandlerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

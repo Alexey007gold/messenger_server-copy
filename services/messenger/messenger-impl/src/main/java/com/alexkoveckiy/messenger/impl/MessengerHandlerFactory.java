@@ -1,6 +1,5 @@
 package com.alexkoveckiy.messenger.impl;
 
-import com.alexkoveckiy.common.router.api.factory.ByCommandHandlerFactory;
 import com.alexkoveckiy.common.router.api.factory.RequestHandlerFactory;
 import com.alexkoveckiy.messenger.api.handler.MessengerRequestHandler;
 import org.springframework.stereotype.Component;

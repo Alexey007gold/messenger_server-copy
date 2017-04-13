@@ -1,10 +1,9 @@
 package com.alexkoveckiy.common.router;
 
 import com.alexkoveckiy.common.router.api.factory.ByCommandHandlerFactory;
-import com.alexkoveckiy.common.router.api.handler.ByCommandRouterHandler;
 import com.alexkoveckiy.common.router.api.factory.HandlerFactory;
+import com.alexkoveckiy.common.router.api.handler.ByCommandRouterHandler;
 import com.alexkoveckiy.common.router.impl.FirstRouter;
-import com.alexkoveckiy.common.router.api.factory.RequestHandlerFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

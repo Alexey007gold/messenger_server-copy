@@ -1,13 +1,12 @@
 package com.alexkoveckiy.authorization.impl.handler;
 
+import com.alexkoveckiy.authorization.api.handler.AuthorizationRequestHandler;
 import com.alexkoveckiy.authorization.api.message.LoginRequest;
 import com.alexkoveckiy.authorization.api.message.LoginResponse;
-import com.alexkoveckiy.authorization.api.handler.AuthorizationRequestHandler;
 import com.alexkoveckiy.common.dao.service.DeviceService;
 import com.alexkoveckiy.common.protocol.Request;
 import com.alexkoveckiy.common.protocol.Response;
 import com.alexkoveckiy.common.protocol.ResponseFactory;
-import com.alexkoveckiy.common.router.api.handler.AbstractRequestHandler;
 import com.alexkoveckiy.common.token.api.TokenHandler;
 import org.jose4j.jwt.JwtClaims;
 import org.springframework.beans.factory.annotation.Autowired;
