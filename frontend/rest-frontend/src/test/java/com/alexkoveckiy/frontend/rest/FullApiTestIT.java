@@ -7,11 +7,13 @@ import com.alexkoveckiy.common.dao.service.BaseService;
 import com.alexkoveckiy.common.datamapper.DataMapper;
 import com.alexkoveckiy.common.datamapper.configuration.DataMapperConfig;
 import com.alexkoveckiy.common.exceptions.InvalidTokenException;
+import com.alexkoveckiy.common.isonline.configuration.IsOnlineConfig;
 import com.alexkoveckiy.common.modelmapper.ModelMapperService;
 import com.alexkoveckiy.common.modelmapper.configuration.CommonModelMapperConfig;
 import com.alexkoveckiy.common.protocol.Request;
 import com.alexkoveckiy.common.protocol.Response;
 import com.alexkoveckiy.common.protocol.RoutingData;
+import com.alexkoveckiy.common.protocol.configuration.ProtocolConfig;
 import com.alexkoveckiy.common.router.configuration.CommonRouterConfig;
 import com.alexkoveckiy.common.router.impl.FirstRouter;
 import com.alexkoveckiy.common.token.api.TokenHandler;
@@ -53,7 +55,9 @@ import static org.junit.Assert.assertThat;
         PersistentJPAConfig.class,
         TokenConfig.class,
         CommonModelMapperConfig.class,
-        WSSessionServiceConfig.class
+        WSSessionServiceConfig.class,
+        ProtocolConfig.class,
+        IsOnlineConfig.class
 })
 @ActiveProfiles("test")
 @TestPropertySource("classpath:application-test.properties")

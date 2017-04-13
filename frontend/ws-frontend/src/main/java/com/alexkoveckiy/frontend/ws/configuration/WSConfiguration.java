@@ -5,6 +5,7 @@ import com.alexkoveckiy.common.dao.configuration.PersistentJPAConfig;
 import com.alexkoveckiy.common.datamapper.configuration.DataMapperConfig;
 import com.alexkoveckiy.common.isonline.configuration.IsOnlineConfig;
 import com.alexkoveckiy.common.modelmapper.configuration.CommonModelMapperConfig;
+import com.alexkoveckiy.common.protocol.configuration.ProtocolConfig;
 import com.alexkoveckiy.common.router.configuration.CommonRouterConfig;
 import com.alexkoveckiy.common.token.configuration.TokenConfig;
 import com.alexkoveckiy.common.wssession.configuration.WSSessionServiceConfig;
@@ -34,7 +35,8 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
         TokenConfig.class,
         CommonModelMapperConfig.class,
         WSSessionServiceConfig.class,
-        IsOnlineConfig.class
+        IsOnlineConfig.class,
+        ProtocolConfig.class
 })
 public class WSConfiguration implements WebSocketConfigurer {
 
