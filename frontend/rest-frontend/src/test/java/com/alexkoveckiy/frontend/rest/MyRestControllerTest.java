@@ -3,6 +3,7 @@ package com.alexkoveckiy.frontend.rest;
 import com.alexkoveckiy.authorization.impl.router.AuthorizationRouter;
 import com.alexkoveckiy.common.dao.entities.ProfileStatusEntity;
 import com.alexkoveckiy.common.dao.service.ProfileStatusService;
+import com.alexkoveckiy.common.isonline.IsOnlineService;
 import com.alexkoveckiy.common.protocol.ActionHeader;
 import com.alexkoveckiy.common.protocol.Request;
 import com.alexkoveckiy.common.protocol.RoutingData;
@@ -40,6 +41,9 @@ public class MyRestControllerTest {
 
     @InjectMocks
     private HttpSession httpSession = Mockito.mock(HttpSession.class);
+
+    @InjectMocks
+    private IsOnlineService isOnlineService = Mockito.mock(IsOnlineService.class);
 
     private Request<?> request1;
     private Request<?> request2;
