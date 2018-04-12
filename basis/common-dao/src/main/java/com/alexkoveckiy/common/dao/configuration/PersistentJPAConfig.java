@@ -21,7 +21,7 @@ import java.util.Properties;
 @Configuration
 @EnableJpaRepositories("com.alexkoveckiy.common.dao")
 @ComponentScan(basePackages = "com.alexkoveckiy.common.dao")
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass = true)
 @PropertySource("classpath:application.properties")
 public class PersistentJPAConfig {
 

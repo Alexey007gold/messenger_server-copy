@@ -2,6 +2,7 @@ package com.alexkoveckiy.common.router.api.handler;
 
 import com.alexkoveckiy.common.protocol.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -15,6 +16,7 @@ public abstract class AbstractRequestHandler<T extends RequestData, R extends Re
     private final Class<T> clazz = getRequestDataClass();
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Response<?> handle(Request<?> msg) {
         Request<T> request = messageFactory.getRequestWithConcreteData(msg, clazz);
 
