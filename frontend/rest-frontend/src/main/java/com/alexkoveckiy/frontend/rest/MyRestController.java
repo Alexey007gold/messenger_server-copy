@@ -7,6 +7,7 @@ import com.alexkoveckiy.common.protocol.ResponseFactory;
 import com.alexkoveckiy.common.protocol.RoutingData;
 import com.alexkoveckiy.common.router.api.handler.Handler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,7 @@ import static com.alexkoveckiy.common.protocol.ResponseFactory.Status.BAD_REQUES
 public class MyRestController {
 
     @Autowired
+    @Qualifier("firstByTypeRouter")
     private Handler firstRouter;
 
     @Autowired

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class FirstRouter extends ByTypeRouterHandler {
+public class FirstByTypeRouter extends ByTypeRouterHandler {
 
     @Autowired
     private ByCommandHandlerFactory handlerFactory;

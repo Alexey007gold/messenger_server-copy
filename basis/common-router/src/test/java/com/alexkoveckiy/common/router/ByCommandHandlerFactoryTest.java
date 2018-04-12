@@ -34,7 +34,7 @@ public class ByCommandHandlerFactoryTest {
         assertThat(handlerFactory.getRouteKey(request2), is("handler_two"));
     }
 
-    private class ByCommandHandlerFactoryMock extends ByCommandHandlerFactory<ByCommandRouterHandler> {
+    private class ByCommandHandlerFactoryMock extends ByCommandHandlerFactory {
         @Override
         protected String getRouteKey(Request msg) {
             return super.getRouteKey(msg);

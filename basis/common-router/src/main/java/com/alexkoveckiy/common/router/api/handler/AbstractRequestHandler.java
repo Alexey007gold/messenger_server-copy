@@ -12,7 +12,7 @@ public abstract class AbstractRequestHandler<T extends RequestData, R extends Re
     @Autowired
     private MessageFactory messageFactory;
 
-    private final Class<T> clazz = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    private final Class<T> clazz = getRequestDataClass();
 
     @Override
     public Response<?> handle(Request<?> msg) {
@@ -26,4 +26,9 @@ public abstract class AbstractRequestHandler<T extends RequestData, R extends Re
     }
 
     protected abstract Response<R> process(Request<T> msg) throws Exception;
+
+    @SuppressWarnings("unchecked")
+    private Class<T> getRequestDataClass() {
+        return (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+    }
 }

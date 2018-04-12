@@ -3,7 +3,7 @@ package com.alexkoveckiy.common.router;
 import com.alexkoveckiy.common.router.api.factory.ByCommandHandlerFactory;
 import com.alexkoveckiy.common.router.api.factory.HandlerFactory;
 import com.alexkoveckiy.common.router.api.handler.ByCommandRouterHandler;
-import com.alexkoveckiy.common.router.impl.FirstRouter;
+import com.alexkoveckiy.common.router.impl.FirstByTypeRouter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -18,10 +18,10 @@ import static org.junit.Assert.assertThat;
  * Created by alex on 02.03.17.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class FirstRouterTest {
+public class FirstByTypeRouterTest {
 
     @InjectMocks
-    private FirstRouterMock firstRouter = Mockito.mock(FirstRouterMock.class, Mockito.CALLS_REAL_METHODS);
+    private FirstByTypeRouterMock firstRouter = Mockito.mock(FirstByTypeRouterMock.class, Mockito.CALLS_REAL_METHODS);
 
     @Spy
     private ByCommandHandlerFactory handlerFactory = Mockito.mock(ByCommandHandlerFactory.class);
@@ -37,7 +37,7 @@ public class FirstRouterTest {
         assertThat(firstRouter.getHandlerFactory(), is(handlerFactory));
     }
 
-    private class FirstRouterMock extends FirstRouter {
+    private class FirstByTypeRouterMock extends FirstByTypeRouter {
         @Override
         protected HandlerFactory<ByCommandRouterHandler> getHandlerFactory() {
             return super.getHandlerFactory();

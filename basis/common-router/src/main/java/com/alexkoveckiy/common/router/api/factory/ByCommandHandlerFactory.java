@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
  * Created by alex on 16.03.17.
  */
 @Component
-public class ByCommandHandlerFactory<T extends ByCommandRouterHandler> extends HandlerFactory<T> {
+public class ByCommandHandlerFactory extends HandlerFactory<ByCommandRouterHandler> {
 
     @Override
     protected String getRouteKey(Request<?> msg) {

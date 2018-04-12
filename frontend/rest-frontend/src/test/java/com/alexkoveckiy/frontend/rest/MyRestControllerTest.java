@@ -7,7 +7,7 @@ import com.alexkoveckiy.common.isonline.IsOnlineService;
 import com.alexkoveckiy.common.protocol.ActionHeader;
 import com.alexkoveckiy.common.protocol.Request;
 import com.alexkoveckiy.common.protocol.RoutingData;
-import com.alexkoveckiy.common.router.impl.FirstRouter;
+import com.alexkoveckiy.common.router.impl.FirstByTypeRouter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +31,7 @@ public class MyRestControllerTest {
     private MyRestController restController;
 
     @Spy
-    private FirstRouter firstRouter = new FirstRouter();
+    private FirstByTypeRouter firstByTypeRouter = new FirstByTypeRouter();
 
     @Spy
     private AuthorizationRouter authorizationRouter = new AuthorizationRouter();
@@ -67,22 +67,22 @@ public class MyRestControllerTest {
     public void processPublicRequestTest() {
         restController.processPublicRequest(request1);
         verify(authorizationRouter).handle(request1);
-        verify(firstRouter, never()).handle(any());
+        verify(firstByTypeRouter, never()).handle(any());
 
         restController.processPublicRequest(request2);
         verify(authorizationRouter).handle(request2);
-        verify(firstRouter, never()).handle(any());
+        verify(firstByTypeRouter, never()).handle(any());
     }
 
     @Test
     public void processPrivateRequestTest() {
         when(profileStatusService.findByProfileId(any(String.class))).thenReturn(Mockito.mock(ProfileStatusEntity.class));
         restController.processPrivateRequest(request1, httpSession);
-        verify(firstRouter).handle(request1);
+        verify(firstByTypeRouter).handle(request1);
         verify(authorizationRouter, never()).handle(any());
 
         restController.processPrivateRequest(request2, httpSession);
-        verify(firstRouter).handle(request2);
+        verify(firstByTypeRouter).handle(request2);
         verify(authorizationRouter, never()).handle(any());
     }
 }

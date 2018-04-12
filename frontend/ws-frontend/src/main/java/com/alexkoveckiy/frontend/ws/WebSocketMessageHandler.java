@@ -11,6 +11,7 @@ import com.alexkoveckiy.common.token.api.TokenHandler;
 import com.alexkoveckiy.common.wssession.WebSocketSessionService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -39,6 +40,7 @@ public class WebSocketMessageHandler extends TextWebSocketHandler {
     private DataMapper dataMapper;
 
     @Autowired
+    @Qualifier("firstByTypeRouter")
     private Handler firstRouter;
 
     @Override
@@ -65,7 +67,9 @@ public class WebSocketMessageHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) {
-        isOnlineService.checkOnline(webSocketSessionService.getRoutingData(session).getProfileId());
-        webSocketSessionService.remove(session);
+        try {
+            isOnlineService.checkOnline(webSocketSessionService.getRoutingData(session).getProfileId());
+            webSocketSessionService.remove(session);
+        } catch (NullPointerException ignore) {}
     }
 }

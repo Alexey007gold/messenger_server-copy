@@ -15,7 +15,7 @@ import com.alexkoveckiy.common.protocol.Response;
 import com.alexkoveckiy.common.protocol.RoutingData;
 import com.alexkoveckiy.common.protocol.configuration.ProtocolConfig;
 import com.alexkoveckiy.common.router.configuration.CommonRouterConfig;
-import com.alexkoveckiy.common.router.impl.FirstRouter;
+import com.alexkoveckiy.common.router.impl.FirstByTypeRouter;
 import com.alexkoveckiy.common.token.api.TokenHandler;
 import com.alexkoveckiy.common.token.configuration.TokenConfig;
 import com.alexkoveckiy.common.wssession.configuration.WSSessionServiceConfig;
@@ -64,7 +64,7 @@ import static org.junit.Assert.assertThat;
 public class FullApiTestIT {
 
     @Autowired
-    private FirstRouter firstRouter;
+    private FirstByTypeRouter firstByTypeRouter;
 
     @Autowired
     private DataMapper dataMapper;
@@ -313,7 +313,7 @@ public class FullApiTestIT {
     }
 
     private Response<RegisterResponse> testRegistrationHandler(Request<RegisterRequest> request) {
-        Response<RegisterResponse> response = (Response<RegisterResponse>) firstRouter.handle(request);
+        Response<RegisterResponse> response = (Response<RegisterResponse>) firstByTypeRouter.handle(request);
         checkResponseHeaderIsOk(request, response);
         assertThat(response.getStatus().getCode(), is(200));
         assertThat(response.getData().getRegistrationRequestUuid().length(), is(36));
@@ -323,7 +323,7 @@ public class FullApiTestIT {
     }
 
     private Response<RegisterResponse> testRegisterIsNotSuccessful(Request<RegisterRequest> request) {
-        Response<RegisterResponse> response = (Response<RegisterResponse>) firstRouter.handle(request);
+        Response<RegisterResponse> response = (Response<RegisterResponse>) firstByTypeRouter.handle(request);
         checkResponseHeaderIsOk(request, response);
         assertThat(response.getData(), is(nullValue()));
         assertThat(response.getStatus().getCode(), not(200));
@@ -335,7 +335,7 @@ public class FullApiTestIT {
     }
 
     private Response<SmsConfirmResponse> testSmsConfirmHandler(Request<SmsConfirmRequest> request) {
-        Response<SmsConfirmResponse> response = (Response<SmsConfirmResponse>) firstRouter.handle(request);
+        Response<SmsConfirmResponse> response = (Response<SmsConfirmResponse>) firstByTypeRouter.handle(request);
         checkResponseHeaderIsOk(request, response);
         assertThat(response.getStatus().getCode(), is(200));
         assertThat(response.getData().getDeviceToken(), is(notNullValue(String.class)));
@@ -347,7 +347,7 @@ public class FullApiTestIT {
     }
 
     private Response<LoginResponse> testLoginHandler(Request<LoginRequest> request) {
-        Response<LoginResponse> response = (Response<LoginResponse>) firstRouter.handle(request);
+        Response<LoginResponse> response = (Response<LoginResponse>) firstByTypeRouter.handle(request);
         checkResponseHeaderIsOk(request, response);
         assertThat(response.getStatus().getCode(), is(200));
         assertThat(response.getData().getToken(), is(notNullValue(String.class)));
@@ -359,7 +359,7 @@ public class FullApiTestIT {
     }
 
     private void testContactsSyncHandler(Request<ContactSyncRequest> request) {
-        Response<ContactSyncResponse> response = (Response<ContactSyncResponse>) firstRouter.handle(request);
+        Response<ContactSyncResponse> response = (Response<ContactSyncResponse>) firstByTypeRouter.handle(request);
         checkResponseHeaderIsOk(request, response);
         assertThat(response.getStatus().getCode(), is(200));
     }
@@ -369,7 +369,7 @@ public class FullApiTestIT {
     }
 
     private void testGetContactProfilesHandler(Request<GetContactProfilesRequest> request, Response<GetMyProfileResponse> absentProfile, List<Response<GetMyProfileResponse>> getMyProfileResponses) {
-        Response<GetContactProfilesResponse> response = (Response<GetContactProfilesResponse>) firstRouter.handle(request);
+        Response<GetContactProfilesResponse> response = (Response<GetContactProfilesResponse>) firstByTypeRouter.handle(request);
         checkResponseHeaderIsOk(request, response);
         assertThat(response.getStatus().getCode(), is(200));
         assertThat(response.getData().getProfiles().size(), is(5));
@@ -381,7 +381,7 @@ public class FullApiTestIT {
     }
 
     private void testGetOtherProfilesHandler(Request<GetOtherProfilesRequest> request, List<Response<GetMyProfileResponse>> getMyProfileResponses, RoutingData routingData) {
-        Response<GetOtherProfilesResponse> response = (Response<GetOtherProfilesResponse>) firstRouter.handle(request);
+        Response<GetOtherProfilesResponse> response = (Response<GetOtherProfilesResponse>) firstByTypeRouter.handle(request);
         checkResponseHeaderIsOk(request, response);
         assertThat(response.getStatus().getCode(), is(200));
         assertThat(response.getData().getProfiles().size(), is(6));
@@ -393,7 +393,7 @@ public class FullApiTestIT {
     }
 
     private Response<GetMyProfileResponse> testGetMyProfileHandlerWithEmptySetts(Request<GetMyProfileRequest> request, String phoneNumber) {
-        Response<GetMyProfileResponse> response = (Response<GetMyProfileResponse>) firstRouter.handle(request);
+        Response<GetMyProfileResponse> response = (Response<GetMyProfileResponse>) firstByTypeRouter.handle(request);
         checkResponseHeaderIsOk(request, response);
         assertThat(response.getStatus().getCode(), is(200));
         assertThat(response.getData().getProfile().getPhoneNumber(), is(phoneNumber));
@@ -408,7 +408,7 @@ public class FullApiTestIT {
     }
 
     private void testGetMyProfileHandlerWithSetts(Request<GetMyProfileRequest> request, String phoneNumber, String avatarUri, String name, String status) {
-        Response<GetMyProfileResponse> response = (Response<GetMyProfileResponse>) firstRouter.handle(request);
+        Response<GetMyProfileResponse> response = (Response<GetMyProfileResponse>) firstByTypeRouter.handle(request);
         checkResponseHeaderIsOk(request, response);
         assertThat(response.getStatus().getCode(), is(200));
         assertThat(response.getData().getProfile().getPhoneNumber(), is(phoneNumber));
@@ -424,7 +424,7 @@ public class FullApiTestIT {
     }
 
     private void testSetMyProfileHandler(Request<SetMyProfileRequest> request) {
-        Response<SetMyProfileResponse> response = (Response<SetMyProfileResponse>) firstRouter.handle(request);
+        Response<SetMyProfileResponse> response = (Response<SetMyProfileResponse>) firstByTypeRouter.handle(request);
         checkResponseHeaderIsOk(request, response);
         assertThat(response.getStatus().getCode(), is(200));
     }
@@ -434,7 +434,7 @@ public class FullApiTestIT {
     }
 
     private void testSetProfileSettings(Request<SetProfileSettingsRequest> request) {
-        Response<SetProfileSettingsResponse> response = (Response<SetProfileSettingsResponse>) firstRouter.handle(request);
+        Response<SetProfileSettingsResponse> response = (Response<SetProfileSettingsResponse>) firstByTypeRouter.handle(request);
         checkResponseHeaderIsOk(request, response);
         assertThat(response.getStatus().getCode(), is(200));
     }
@@ -444,7 +444,7 @@ public class FullApiTestIT {
     }
 
     private void testGetProfileSettings(Request<GetProfileSettingsRequest> request, boolean shareOnline, boolean shareSeen) {
-        Response<GetProfileSettingsResponse> response = (Response<GetProfileSettingsResponse>) firstRouter.handle(request);
+        Response<GetProfileSettingsResponse> response = (Response<GetProfileSettingsResponse>) firstByTypeRouter.handle(request);
         checkResponseHeaderIsOk(request, response);
         assertThat(response.getStatus().getCode(), is(200));
         assertThat(response.getData().getSettings().isShareOnlineStatus(), is(shareOnline));
@@ -456,7 +456,7 @@ public class FullApiTestIT {
     }
 
     private void testGetLastTimeOnlineHandler(Request<GetLastTimeOnlineRequest> request) {
-        Response<GetLastTimeOnlineResponse> response = (Response<GetLastTimeOnlineResponse>) firstRouter.handle(request);
+        Response<GetLastTimeOnlineResponse> response = (Response<GetLastTimeOnlineResponse>) firstByTypeRouter.handle(request);
         checkResponseHeaderIsOk(request, response);
         assertThat(response.getStatus().getCode(), is(200));
         assertThat(response.getData().getProfiles().size(), is(6));
