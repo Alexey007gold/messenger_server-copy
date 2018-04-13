@@ -25,6 +25,7 @@ import org.springframework.web.socket.TextMessage;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
 
 import static com.alexkoveckiy.common.dao.entities.MessageStatusEntity.MessageStatus.SERVER_RECEIVED;
 
@@ -89,18 +90,25 @@ public class SendMessageRequestHandler extends MessengerRequestHandler<SendMessa
     }
 
     private void sendNotification(Request<SendMessageRequest> msg, MessageEntity messageEntity) {
-        MessageDTO messageDTO = modelMapperService.map(messageEntity, MessageDTO.class);
-        ActionHeader header = new ActionHeader(UUID.randomUUID().toString(), msg.getHeader().getUuid(),
-                "new_message_notification", "profile", "HTTP/1.1");
-        NewMessageNotification newMessageNotification = new NewMessageNotification(messageDTO);
-        Response<NewMessageNotification> notification = ResponseFactory.createResponse(header, newMessageNotification);
-        TextMessage message = new TextMessage(dataMapper.dataToString(notification));
-        for (ConversationMemberEntity conversationMember : conversationMemberService.findByConversationId(msg.getData().getMessage().getConversationId())) {
-            try {
-                if (!conversationMember.getProfileId().equals(msg.getRoutingData().getProfileId()))
-                    webSocketSessionService.getSession(conversationMember.getProfileId()).sendMessage(message);
-            } catch (IOException ignored) {}
-        }
+        CompletableFuture.supplyAsync(() -> {
+            MessageDTO messageDTO = modelMapperService.map(messageEntity, MessageDTO.class);
+            ActionHeader header = new ActionHeader(UUID.randomUUID().toString(), msg.getHeader().getUuid(),
+                    "new_message_notification", "profile", "HTTP/1.1");
+            NewMessageNotification newMessageNotification = new NewMessageNotification(messageDTO);
+            Response<NewMessageNotification> notification = ResponseFactory.createResponse(header, newMessageNotification);
+            TextMessage message = new TextMessage(dataMapper.dataToString(notification));
+
+            conversationMemberService.findByConversationId(msg.getData().getMessage().getConversationId())
+                    .parallelStream()
+                    .filter(m -> !m.getProfileId().equals(msg.getRoutingData().getProfileId()))
+                    .forEach(m -> {
+                        try {
+                            webSocketSessionService.getSession(m.getProfileId()).sendMessage(message);
+                        } catch (IOException | NullPointerException ignored) {}
+                    });
+
+            return null;
+        });
     }
 
 
