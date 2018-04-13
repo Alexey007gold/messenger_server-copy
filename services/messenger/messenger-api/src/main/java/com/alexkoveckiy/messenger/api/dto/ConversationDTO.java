@@ -13,6 +13,7 @@ public class ConversationDTO {
     private String name;
     private ConversationType type;
     private Long lastMessageIndex;
+    private Long creationDate;
 
     public ConversationDTO() {
     }
@@ -54,6 +55,14 @@ public class ConversationDTO {
 
     public void setLastMessageIndex(Long lastMessageIndex) {
         this.lastMessageIndex = lastMessageIndex;
+    }
+
+    public Long getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Long creationDate) {
+        this.creationDate = creationDate;
     }
 
     public static class ConversationDTOByLastMessageTimeComparator implements Comparator<ConversationDTO> {

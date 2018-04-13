@@ -60,9 +60,13 @@ public class GetConversationsRequestHandler extends MessengerRequestHandler<GetC
         Map<ConversationDTO, Long> conversationDTOLastMessageTimeMap = new HashMap<>();
         List<MessageEntity> messageEntities;
         for (ConversationDTO conversationDTO : conversationDTOS) {
-            messageEntities = messageService.findByConversationId(conversationDTO.getId());
-            Collections.sort(messageEntities);
-            conversationDTOLastMessageTimeMap.put(conversationDTO, messageEntities.get(messageEntities.size() - 1).getServerReceivedDate());
+            if (conversationDTO.getLastMessageIndex() != null) {
+                messageEntities = messageService.findByConversationId(conversationDTO.getId());
+                Collections.sort(messageEntities);
+                conversationDTOLastMessageTimeMap.put(conversationDTO, messageEntities.get(messageEntities.size() - 1).getServerReceivedDate());
+            } else {
+                conversationDTOLastMessageTimeMap.put(conversationDTO, conversationDTO.getCreationDate());
+            }
         }
         conversationDTOS.sort(new ConversationDTOByLastMessageTimeComparator(conversationDTOLastMessageTimeMap));
 

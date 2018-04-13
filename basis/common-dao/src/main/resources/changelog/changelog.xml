@@ -129,9 +129,7 @@
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="admin_id" type="VARCHAR(36)"/>
-            <column name="name" type="TEXT">
-                <constraints nullable="false"/>
-            </column>
+            <column name="name" type="TEXT"/>
             <column name="logo_image_uri" type="TEXT"/>
         </createTable>
         <createTable tableName="message">
