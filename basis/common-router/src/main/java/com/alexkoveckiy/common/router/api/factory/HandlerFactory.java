@@ -14,21 +14,18 @@ import java.util.Map;
  */
 public abstract class HandlerFactory<T extends Handler> {
 
-    @Autowired
-    private List<T> handlers;
-
     private Map<String, T> handlerMap = new HashMap<>();
-
-    @PostConstruct
-    public void init() {
-        for (T handler : handlers) {
-            handlerMap.put(handler.getName(), handler);
-        }
-    }
 
     public T getHandler(final Request<?> msg) {
         return handlerMap.get(getRouteKey(msg));
     }
 
     abstract protected String getRouteKey(final Request<?> msg);
+
+    @Autowired
+    public void setHandlerMap(List<T> handlers) {
+        for (T handler : handlers) {
+            handlerMap.put(handler.getName(), handler);
+        }
+    }
 }
