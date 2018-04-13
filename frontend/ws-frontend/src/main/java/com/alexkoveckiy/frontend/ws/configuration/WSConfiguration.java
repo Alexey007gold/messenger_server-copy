@@ -42,7 +42,7 @@ public class WSConfiguration implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry webSocketHandlerRegistry) {
-        webSocketHandlerRegistry.addHandler(webSocketMessageHandler(), "/server/public/ws")
+        webSocketHandlerRegistry.addHandler(webSocketMessageHandler(), "/server")
                 .setAllowedOrigins("*")
                 .addInterceptors(tokenCheckingHandshakeInterceptor());
     }
